@@ -1,5 +1,13 @@
 # Needful things for Vue.js web projects
 
+> Be aware that this package is tailored to our needs.
+
+## Installation
+
+```bash
+yarn add @ppm-vi/needful-things
+```
+
 ## Components
 
 ### EmailLink
