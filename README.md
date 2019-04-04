@@ -1,1 +1,42 @@
 # Needful things for Vue.js web projects
+
+## Components
+
+### EmailLink
+
+This component provides a simple way to include an `a`-tag with a `mailto` link.
+
+#### Install
+
+```js
+EmailLink: () => import('@ppm-vi/needful-things').then(({ EmailLink }) => EmailLink)
+```
+
+#### Props
+
+- `email` ***String***  
+The actual email which should be used for the `mailto` link.
+
+---
+
+### TelLink
+
+This component provides a simple way to include an `a`-tag with a `tel` link. Whitespaces, `/` and `-` are automatically removed.
+
+#### Install
+
+```js
+TelLink: () => import('@ppm-vi/needful-things').then(({ TelLink }) => TelLink)
+```
+
+#### Props
+
+- `tel` ***String***  
+The actual telephone number which should be used for the `tel` link.
+
+- `wrapper` ***Boolean***
+Set to `true` if you dont want the component to render the telephone number into a `span`.
+
+#### Slots
+
+- `default` The default slot inside the a tag
