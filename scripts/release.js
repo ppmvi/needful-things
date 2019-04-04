@@ -81,7 +81,6 @@ class Release {
 
   async release() {
     await standardVersion({
-      dryRun: true,
       infile: '../CHANGELOG.md',
       silent: true
     });
