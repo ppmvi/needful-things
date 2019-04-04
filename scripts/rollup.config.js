@@ -23,7 +23,7 @@ const minPlugins = [
 ];
 
 const esm = {
-  input: 'src/index.js',
+  input: './src/index.js',
   output: {
     format: 'esm',
     file: 'dist/needful-things.js'
@@ -32,7 +32,7 @@ const esm = {
 };
 
 const esmMin = JSON.parse(JSON.stringify(esm));
-esmMin.output.file = 'dist/needful-things.min.js';
+esmMin.output.file = './dist/needful-things.min.js';
 esmMin.plugins = minPlugins;
 
 export default [
