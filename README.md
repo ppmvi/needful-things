@@ -1,5 +1,9 @@
 # Needful things for Vue.js web projects
 
+<p align="left">
+    <a href="https://www.npmjs.com/package/@ppm-vi/needful-things"><img src="https://badgen.net/npm/v/@ppm-vi/needful-things" alt="Version"></a>
+</p>
+
 > Be aware that this package is tailored to our needs.
 
 ## Installation
