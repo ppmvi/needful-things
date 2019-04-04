@@ -1,0 +1,37 @@
+{
+  "name": "@ppm-vi/needful-things",
+  "version": "1.0.0",
+  "description": "Needful things for Vue.js web projects",
+  "keywords": [],
+  "author": "Florian Weber <f.weber@ppm-vi.de>",
+  "contributors": [
+    "Florian Weber <f.weber@ppm-vi.de>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.ppm-vi.de/nodejs/needful-things"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.ppm-vi.de/nodejs/needful-things/issues"
+  },
+  "main": "dist/needful-things.js",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "rollup --config"
+  },
+  "devDependencies": {
+    "@babel/core": "7.4.3",
+    "@babel/preset-env": "7.4.3",
+    "rollup": "1.8.0",
+    "rollup-plugin-babel": "4.3.2",
+    "rollup-plugin-commonjs": "9.3.3",
+    "rollup-plugin-node-resolve": "4.0.1",
+    "rollup-plugin-terser": "4.0.4",
+    "rollup-plugin-vue": "4.7.2",
+    "standard-version": "^5.0.2",
+    "vue-template-compiler": "2.6.10"
+  }
+}
