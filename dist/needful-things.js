@@ -6,9 +6,16 @@
 //
 //
 //
+//
+//
+//
+//
 var script = {
   props: {
-    email: String
+    email: {
+      type: String,
+      required: true
+    }
   },
   data: function data() {
     return {
@@ -132,11 +139,11 @@ var __vue_render__ = function __vue_render__() {
         return _vm.sendMail($event);
       }
     }
-  }, [_c("span", [_vm._v("\n        " + _vm._s(_vm.splittedEmail[0])), _c("span", {
+  }, [_c("span", [_vm._v("\n    " + _vm._s(_vm.splittedEmail[0])), _c("span", {
     staticClass: "d-none"
   }), _vm._v("@"), _c("span", {
     staticClass: "d-none"
-  }), _vm._v(_vm._s(_vm.splittedEmail[1]) + "\n    ")])]);
+  }), _vm._v(_vm._s(_vm.splittedEmail[1]) + "\n  ")])]);
 };
 
 var __vue_staticRenderFns__ = [];
@@ -169,9 +176,19 @@ var EmailLink = normalizeComponent_1({
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var script$1 = {
   props: {
-    tel: String,
+    tel: {
+      type: String,
+      required: true
+    },
     wrapper: Boolean
   },
   methods: {
