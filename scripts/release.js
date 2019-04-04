@@ -4,26 +4,20 @@ import packageJson from '../package.json';
 import conventionalRecommendedBump from 'conventional-recommended-bump';
 import semver from 'semver';
 import pify from 'pify';
-import { rollup } from 'rollup';
+import { rollup, watch } from 'rollup';
 import rollupConfig from './rollup.config';
 import Listr from 'listr';
 import spawn from 'cross-spawn';
 import filter from 'lodash/filter';
 import standardVersion from 'standard-version';
+import inquirer from 'inquirer';
 
-class Release {
+export default class Release {
   constructor() {
     this.currentVersion = packageJson.version;
     this.newVersion = null;
 
     this.tasks = new Listr([
-      {
-        title: 'Fetch new Version',
-        task: async(ctx, task) => {
-          this.newVersion = await this.getNextVersion();
-          task.title = `New version is ${this.newVersion}`;
-        }
-      },
       {
         title: 'Build new version with rollup',
         task: this.build
@@ -39,15 +33,64 @@ class Release {
     ]);
   }
 
-  run() {
-    this.tasks.run();
+  async run() {
+    this.newVersion = await this.getNextVersion();
+
+    const { release } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        message: 'You are about to release a new version, are you sure?',
+        name: 'release'
+      }
+    ]);
+
+    if (release) this.tasks.run();
   }
 
-  async build() {
+  async build(_watch = false) {
     try {
+      const bundles = [];
       for (const config of rollupConfig) {
-        const bundle = await rollup(config);
-        await bundle.write(config.output);
+        bundles.push({
+          [_watch ? 'bundleWatcher' : 'bundle']: _watch ? await watch(config) : await rollup(config),
+          output: config.output
+        });
+      }
+
+      if (_watch) {
+        for (const { bundleWatcher, output } of bundles) {
+          // There is no need for building min files in development
+          if (!output.file.includes('min')) {
+            bundleWatcher.on('event', event => {
+              switch (event.code) {
+              case 'START':
+                return console.log(`Watching for changes`);
+  
+              case 'BUNDLE_START':
+                return console.log(`Building bundle`);
+  
+              case 'BUNDLE_END':
+                return;
+  
+              case 'END':
+                return console.log(`Bundle built`);
+  
+              case 'ERROR':
+                return console.log(event.error);
+  
+              case 'FATAL':
+                return console.log(event.error);
+  
+              default:
+                return console.log(JSON.stringify(event));
+              }
+            });
+          }
+        }
+      } else {
+        for (const { bundle, output } of bundles) {
+          await bundle.write(output);
+        }
       }
     } catch (err) {
       console.log(err);
@@ -97,6 +140,3 @@ class Release {
     };
   }
 }
-
-const release = new Release();
-release.run();
