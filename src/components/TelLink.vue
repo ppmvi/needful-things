@@ -15,7 +15,10 @@
 <script>
   export default {
     props: {
-      tel: String,
+      tel: {
+        type: String,
+        required: true
+      },
       wrapper: Boolean
     },
     methods: {
