@@ -81,7 +81,7 @@ class Release {
 
   async release() {
     await standardVersion({
-      infile: '../CHANGELOG.md',
+      infile: 'CHANGELOG.md',
       silent: true
     });
   }
