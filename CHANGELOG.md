@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.3](http://gitlab.ppm-vi.de/nodejs/needful-things/compare/v1.2.2...v1.2.3) (2019-04-05)
+
+
+### Bug Fixes
+
+* **deps:** moved relevant dependencies out of devDependencies ([83ffc5e](http://gitlab.ppm-vi.de/nodejs/needful-things/commit/83ffc5e))
+
+
+
 ## [1.2.2](http://gitlab.ppm-vi.de/nodejs/needful-things/compare/v1.2.1...v1.2.2) (2019-04-05)
 
 
