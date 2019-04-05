@@ -335,7 +335,7 @@ function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance");
 }
 
-function applySplashscreenMetaTags() {
+function applySplashscreenLinks() {
   var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '/static/splashscreens';
   var additional = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   var splashscreens = [];
@@ -437,4 +437,4 @@ function applySplashscreenMetaTags() {
   return splashscreens;
 }
 
-export { EmailLink, TelLink, applyFacebookMetaTags, applySplashscreenMetaTags, applyTwitterMetaTags };
+export { EmailLink, TelLink, applyFacebookMetaTags, applySplashscreenLinks, applyTwitterMetaTags };
