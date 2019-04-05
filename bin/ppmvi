@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+const requireModule = require('esm')(module);
+const parseArgs = require('minimist');
+const argv = parseArgs(process.argv.slice(2), {
+  alias: {
+    h: 'help'
+  },
+  boolean: [ 'h' ]
+});
+
+if (argv.help) {
+  process.stderr.write(`
+Description
+    ppmvi command line tool.
+Usage
+    $ ppmvi
+Options
+    --generate-favicons   Generates a set of favicons
+    --help, h             Displays this message
+`);
+  process.exit(0);
+}
+
+if (argv['generate-favicons']) {
+  const favicon = requireModule('../src/favicons');
+  favicon.generate();
+}

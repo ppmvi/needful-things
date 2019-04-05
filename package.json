@@ -16,6 +16,9 @@
     "url": "https://gitlab.ppm-vi.de/nodejs/needful-things/issues"
   },
   "main": "dist/needful-things.js",
+  "bin": {
+    "ppmvi": "./bin/ppmvi"
+  },
   "files": [
     "/dist"
   ],
@@ -41,8 +44,10 @@
     "esm": "^3.2.22",
     "inquirer": "^6.2.2",
     "listr": "^0.14.3",
+    "minimist": "^1.2.0",
     "ora": "^3.4.0",
     "pify": "^4.0.1",
+    "rfg-api": "^0.5.0",
     "rollup": "1.8.0",
     "rollup-plugin-babel": "4.3.2",
     "rollup-plugin-commonjs": "9.3.3",
