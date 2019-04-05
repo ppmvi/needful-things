@@ -20,7 +20,8 @@
     "ppmvi": "./bin/ppmvi"
   },
   "files": [
-    "/dist"
+    "/dist",
+    "/bin"
   ],
   "scripts": {
     "build": "rollup --config",
