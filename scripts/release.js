@@ -11,6 +11,7 @@ import spawn from 'cross-spawn';
 import filter from 'lodash/filter';
 import standardVersion from 'standard-version';
 import inquirer from 'inquirer';
+import ora from 'ora';
 
 export default class Release {
   constructor() {
@@ -20,7 +21,9 @@ export default class Release {
     this.tasks = new Listr([
       {
         title: 'Build new version with rollup',
-        task: this.build
+        task: async() => {
+          await this.build(false);
+        }
       },
       {
         title: `Fetching changed files from 'dist' folder and commiting them`,
@@ -44,7 +47,36 @@ export default class Release {
       }
     ]);
 
-    if (release) this.tasks.run();
+    if (release) {
+      const currentBranch = this.gitBranch();
+      const { branch } = await inquirer.prompt([
+        {
+          type: 'confirm',
+          message: `You are currently in the '${currentBranch}' branch. Do you want to proceed?`,
+          name: 'branch'
+        }
+      ]);
+
+      if (branch) {
+        this.exec('git', 'checkout', '-b', `release/${this.newVersion}`, currentBranch);
+        
+        await this.tasks.run();
+
+        const { revert } = await inquirer.prompt([
+          {
+            type: 'confirm',
+            message: `Finished preparing for new release. If you are happy with everything, merge it into master. Or do you want to revert?`,
+            name: 'revert'
+          }
+        ]);
+
+        if (revert) {
+          this.exec('git', 'checkout', 'master');
+          this.exec('git', 'branch', '-D', `release/${this.newVersion}`);
+          this.exec('git', 'tag', '-d', `v${this.newVersion}`);
+        }
+      }
+    }
   }
 
   async build(_watch = false) {
@@ -52,28 +84,35 @@ export default class Release {
       const bundles = [];
       for (const config of rollupConfig) {
         bundles.push({
-          [_watch ? 'bundleWatcher' : 'bundle']: _watch ? await watch(config) : await rollup(config),
+          bundle: _watch ? await watch(config) : await rollup(config),
           output: config.output
         });
       }
 
       if (_watch) {
-        for (const { bundleWatcher, output } of bundles) {
+        const watcherSpinner = ora('Starting watching').start();
+
+        for (const { bundle, output } of bundles) {
           // There is no need for building min files in development
           if (!output.file.includes('min')) {
-            bundleWatcher.on('event', event => {
+            bundle.on('event', event => {
               switch (event.code) {
               case 'START':
-                return console.log(`Watching for changes`);
+                watcherSpinner.start();
+                watcherSpinner.text = `Watching for changes`;
+                break;
   
               case 'BUNDLE_START':
-                return console.log(`Building bundle`);
+                console.clear();
+                watcherSpinner.text = `Building bundle`;
+                break;
   
               case 'BUNDLE_END':
-                return;
+                watcherSpinner.succeed(`Bundle built`);
+                break;
   
               case 'END':
-                return console.log(`Bundle built`);
+                break;
   
               case 'ERROR':
                 return console.log(event.error);
@@ -118,7 +157,7 @@ export default class Release {
     const { stderr: stderrAdd } = this.exec('git', 'add', ...files);
     if (stderrAdd) throw new Error(stderrAdd);
 
-    const { stderrCommit } = this.exec('git', 'commit', `-m"fix: Adding newly built files for version ${this.newVersion}"`);
+    const { stderrCommit } = this.exec('git', 'commit', `-m "chore: Adding newly built files for version ${this.newVersion}"`);
     if (stderrCommit) throw new Error(stderrCommit);
   }
 
@@ -138,5 +177,10 @@ export default class Release {
       stderr: String(r.stderr).trim(),
       composedCommand
     };
+  }
+
+  gitBranch() {
+    const { stdout } = this.exec('git', 'rev-parse', '--abbrev-ref', 'HEAD');
+    return stdout;
   }
 }
