@@ -1,4 +1,4 @@
-export function applySplashscreenMetaTags(url = '/static/splashscreens', additional = []) {
+export function applySplashscreenLinks(url = '/static/splashscreens', additional = []) {
   const splashscreens = [];
   const rel = 'apple-touch-startup-image';
   const screens = [
