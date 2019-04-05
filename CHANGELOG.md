@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [1.2.0](http://gitlab.ppm-vi.de/nodejs/needful-things/compare/v1.1.0...v1.2.0) (2019-04-05)
+
+
+### Bug Fixes
+
+* **favicons:** changed default path ([32fa290](http://gitlab.ppm-vi.de/nodejs/needful-things/commit/32fa290))
+* **favicons:** custom path can be passed to cli tool ([4909e1c](http://gitlab.ppm-vi.de/nodejs/needful-things/commit/4909e1c))
+* **splashscreen:** renamed function to applySplashscreenLinks ([4af982f](http://gitlab.ppm-vi.de/nodejs/needful-things/commit/4af982f))
+* added path to help in executable for generate-favicons arg ([667a7ae](http://gitlab.ppm-vi.de/nodejs/needful-things/commit/667a7ae))
+
+
+### Features
+
+* generating favicons ([be6280c](http://gitlab.ppm-vi.de/nodejs/needful-things/commit/be6280c))
+* introducing the new executable ppmvi ([86e6792](http://gitlab.ppm-vi.de/nodejs/needful-things/commit/86e6792))
+
+
+
 # [1.1.0](http://gitlab.ppm-vi.de/nodejs/needful-things/compare/v1.0.1...v1.1.0) (2019-04-05)
 
 
