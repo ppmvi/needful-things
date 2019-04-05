@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.2](http://gitlab.ppm-vi.de/nodejs/needful-things/compare/v1.2.1...v1.2.2) (2019-04-05)
+
+
+### Bug Fixes
+
+* added src directory to files in package.json ([8a5e798](http://gitlab.ppm-vi.de/nodejs/needful-things/commit/8a5e798))
+
+
+
 ## [1.2.1](http://gitlab.ppm-vi.de/nodejs/needful-things/compare/v1.2.0...v1.2.1) (2019-04-05)
 
 
