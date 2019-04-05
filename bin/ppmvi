@@ -15,8 +15,8 @@ Description
 Usage
     $ ppmvi
 Options
-    --generate-favicons   Generates a set of favicons
-    --help, h             Displays this message
+    --generate-favicons <path>  Generates a set of favicons
+    --help, h                   Displays this message
 `);
   process.exit(0);
 }
