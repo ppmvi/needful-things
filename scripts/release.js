@@ -12,6 +12,8 @@ import filter from 'lodash/filter';
 import standardVersion from 'standard-version';
 import inquirer from 'inquirer';
 import ora from 'ora';
+import chalk from 'chalk';
+import logSymbols from 'log-symbols';
 
 export default class Release {
   constructor() {
@@ -48,25 +50,30 @@ export default class Release {
     ]);
 
     if (release) {
-      const currentBranch = this.gitBranch();
       const { branch } = await inquirer.prompt([
         {
           type: 'confirm',
-          message: `You are currently in the '${currentBranch}' branch. Do you want to proceed?`,
+          message: `You are currently in the '${this.gitBranch()}' branch. Do you want to proceed?`,
           name: 'branch'
         }
       ]);
 
       if (branch) {
-        this.exec('git', 'checkout', '-b', `release/${this.newVersion}`, currentBranch);
-        
         await this.tasks.run();
 
+        console.log(
+          logSymbols.success,
+          chalk.bold(
+            `Finished preparing for new release. If you are happy with everything, merge the 'release/${this.newVersion}' branch into master.`
+          )
+        );
+    
         const { revert } = await inquirer.prompt([
           {
             type: 'confirm',
-            message: `Finished preparing for new release. If you are happy with everything, merge it into master. Or do you want to revert?`,
-            name: 'revert'
+            message: `Or do you want to revert this release?`,
+            name: 'revert',
+            default: false
           }
         ]);
 
@@ -154,11 +161,17 @@ export default class Release {
 
     const files = filter(stdout.split('\n'), file => file.match(/dist/g));
 
-    const { stderr: stderrAdd } = this.exec('git', 'add', ...files);
-    if (stderrAdd) throw new Error(stderrAdd);
+    if (files.length > 0) {
+      this.exec('git', 'checkout', '-b', `release/${this.newVersion}`, this.gitBranch());
 
-    const { stderrCommit } = this.exec('git', 'commit', `-m "chore: Adding newly built files for version ${this.newVersion}"`);
-    if (stderrCommit) throw new Error(stderrCommit);
+      const { stderr: stderrAdd } = this.exec('git', 'add', ...files);
+      if (stderrAdd) throw new Error(stderrAdd);
+  
+      const { stderrCommit } = this.exec('git', 'commit', `-m "chore: Adding newly built files for version ${this.newVersion}"`);
+      if (stderrCommit) throw new Error(stderrCommit);
+    } else {
+      throw new Error(`There are no changes to commit, canceled release.`);
+    }
   }
 
   async release() {
