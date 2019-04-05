@@ -8,7 +8,7 @@ export async function generate() {
   const generator = rfg.init();
   
   try {
-    await pify(generator.generateFavicon)(config, './icons');
+    await pify(generator.generateFavicon)(config, './static/icons');
     watcherSpinner.succeed();
   } catch (err) {
     watcherSpinner.fail(err.message);
