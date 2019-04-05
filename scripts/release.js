@@ -161,16 +161,14 @@ export default class Release {
 
     const files = filter(stdout.split('\n'), file => file.match(/dist/g));
 
-    if (files.length > 0) {
-      this.exec('git', 'checkout', '-b', `release/${this.newVersion}`, this.gitBranch());
+    this.exec('git', 'checkout', '-b', `release/${this.newVersion}`, this.gitBranch());
 
+    if (files.length > 0) {
       const { stderr: stderrAdd } = this.exec('git', 'add', ...files);
       if (stderrAdd) throw new Error(stderrAdd);
   
       const { stderrCommit } = this.exec('git', 'commit', `-m "chore: Adding newly built files for version ${this.newVersion}"`);
       if (stderrCommit) throw new Error(stderrCommit);
-    } else {
-      throw new Error(`There are no changes to commit, canceled release.`);
     }
   }
 
