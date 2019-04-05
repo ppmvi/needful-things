@@ -3,12 +3,12 @@ import pify from 'pify';
 import config from './config';
 import ora from 'ora';
 
-export async function generate() {
+export async function generate(path = './static/icons') {
   const watcherSpinner = ora('Generating Favicons').start();
   const generator = rfg.init();
   
   try {
-    await pify(generator.generateFavicon)(config, './static/icons');
+    await pify(generator.generateFavicon)(config, path);
     watcherSpinner.succeed();
   } catch (err) {
     watcherSpinner.fail(err.message);

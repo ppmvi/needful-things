@@ -23,5 +23,6 @@ Options
 
 if (argv['generate-favicons']) {
   const favicon = requireModule('../src/favicons');
-  favicon.generate();
+  if (typeof argv['generate-favicons'] === 'string') favicon.generate(argv['generate-favicons']);
+  else favicon.generate();
 }
