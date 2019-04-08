@@ -437,4 +437,67 @@ function applySplashscreenLinks() {
   return splashscreens;
 }
 
-export { EmailLink, TelLink, applyFacebookMetaTags, applySplashscreenLinks, applyTwitterMetaTags };
+function applyFaviconMetaTags() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var _options$url = options.url,
+      url = _options$url === void 0 ? '/static/icons' : _options$url,
+      _options$manifest = options.manifest,
+      _options$manifest$url = _options$manifest.url,
+      manifestUrl = _options$manifest$url === void 0 ? '/static' : _options$manifest$url,
+      _options$manifest$nam = _options$manifest.name,
+      manifestName = _options$manifest$nam === void 0 ? 'manifest.json' : _options$manifest$nam,
+      _options$color = options.color,
+      color = _options$color === void 0 ? '#FFFFFF' : _options$color;
+  return [{
+    rel: 'apple-touch-icon',
+    sizes: '180x180',
+    href: "".concat(url, "/apple-touch-icon.png")
+  }, {
+    rel: 'icon',
+    type: 'image/png',
+    href: "".concat(url, "/favicon-32x32.png"),
+    sizes: '32x32'
+  }, {
+    rel: 'icon',
+    type: 'image/png',
+    href: "".concat(url, "/favicon-16x16.png"),
+    sizes: '16x16'
+  }, {
+    rel: 'manifest',
+    href: "".concat(manifestUrl, "/").concat(manifestName)
+  }, {
+    rel: 'mask-icon',
+    href: "".concat(url, "/safari-pinned-tab.svg"),
+    color: color
+  }, {
+    rel: 'shortcut icon',
+    href: "".concat(url, "/favicon.ico")
+  }];
+}
+function applyFaviconLinks() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var _options$url2 = options.url,
+      url = _options$url2 === void 0 ? '/static/icons' : _options$url2,
+      _options$color2 = options.color,
+      color = _options$color2 === void 0 ? '#FFFFFF' : _options$color2,
+      _options$statusBarSty = options.statusBarStyle,
+      statusBarStyle = _options$statusBarSty === void 0 ? 'default' : _options$statusBarSty;
+  return [{
+    name: 'msapplication-TileColor',
+    content: color
+  }, {
+    name: 'msapplication-config',
+    content: "".concat(url, "/browserconfig.xml")
+  }, {
+    name: 'theme-color',
+    content: color
+  }, {
+    name: 'apple-mobile-web-app-status-bar-style',
+    content: statusBarStyle
+  }, {
+    name: 'apple-mobile-web-app-capable',
+    content: 'yes'
+  }];
+}
+
+export { EmailLink, TelLink, applyFacebookMetaTags, applyFaviconLinks, applyFaviconMetaTags, applySplashscreenLinks, applyTwitterMetaTags };
