@@ -28,6 +28,12 @@ const esm = {
     format: 'esm',
     file: 'dist/needful-things.js'
   },
+  external: [
+    'fs',
+    'path',
+    'ora',
+    'rfg-api'
+  ],
   plugins
 };
 
