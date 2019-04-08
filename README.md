@@ -176,3 +176,68 @@ An array with objects for additional splashscreen links. The objects should have
         href: String
     }
 ```
+
+### applyFaviconMetaTags
+
+This method can be used to add all the meta tags necessary for favicons and pwa.
+
+#### Usage
+
+```js
+import { applyFaviconMetaTags } from '@ppm-vi/needful-things';
+
+//...
+
+meta: [
+    // links before
+    ...applyFaviconMetaTags()
+    // links after
+]
+
+```
+
+#### Params
+
+- `options` ***Object***
+An objects with the configuration. The following options are available:
+```js
+{
+    url = '/static/icons',
+    manifest: {
+        url = '/static',
+        name = 'manifest.json'
+    },
+    color = '#FFFFFF'
+}
+```
+
+### applyFaviconLinks
+
+This method can be used to add all the links necessary for favicons and pwa.
+
+#### Usage
+
+```js
+import { applyFaviconLinks } from '@ppm-vi/needful-things';
+
+//...
+
+link: [
+    // links before
+    ...applyFaviconLinks()
+    // links after
+]
+
+```
+
+#### Params
+
+- `options` ***Object***
+An objects with the configuration. The following options are available:
+```js
+{
+    url = '/static/icons',
+    color = '#FFFFFF',
+    statusBarStyle = 'default'
+}
+```
