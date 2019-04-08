@@ -9,11 +9,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.ppm-vi.de/nodejs/needful-things"
+    "url": "git+https://github.com/ppmvi/needful-things"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.ppm-vi.de/nodejs/needful-things/issues"
+    "url": "https://github.com/ppmvi/needful-things/issues"
   },
   "main": "dist/needful-things.js",
   "bin": {
