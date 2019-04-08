@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.1](https://github.com/ppmvi/needful-things/compare/v1.3.0...v1.3.1) (2019-04-08)
+
+
+### Bug Fixes
+
+* switched applyFaviconMetaTags and applyFaviconLinks methods ([ad296ef](https://github.com/ppmvi/needful-things/commit/ad296ef))
+
+
+
 # [1.3.0](http://gitlab.ppm-vi.de/nodejs/needful-things/compare/v1.2.3...v1.3.0) (2019-04-08)
 
 
