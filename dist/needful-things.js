@@ -442,12 +442,13 @@ function applyFaviconLinks() {
   var _options$url = options.url,
       url = _options$url === void 0 ? '/static/icons' : _options$url,
       _options$manifest = options.manifest,
-      _options$manifest$url = _options$manifest.url,
-      manifestUrl = _options$manifest$url === void 0 ? '/static' : _options$manifest$url,
-      _options$manifest$nam = _options$manifest.name,
-      manifestName = _options$manifest$nam === void 0 ? 'manifest.json' : _options$manifest$nam,
+      manifest = _options$manifest === void 0 ? {} : _options$manifest,
       _options$color = options.color,
       color = _options$color === void 0 ? '#FFFFFF' : _options$color;
+  var _manifest$url = manifest.url,
+      manifestUrl = _manifest$url === void 0 ? '/static' : _manifest$url,
+      _manifest$name = manifest.name,
+      manifestName = _manifest$name === void 0 ? 'manifest.json' : _manifest$name;
   return [{
     rel: 'apple-touch-icon',
     sizes: '180x180',
