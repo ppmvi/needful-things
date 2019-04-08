@@ -437,7 +437,7 @@ function applySplashscreenLinks() {
   return splashscreens;
 }
 
-function applyFaviconMetaTags() {
+function applyFaviconLinks() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var _options$url = options.url,
       url = _options$url === void 0 ? '/static/icons' : _options$url,
@@ -474,7 +474,7 @@ function applyFaviconMetaTags() {
     href: "".concat(url, "/favicon.ico")
   }];
 }
-function applyFaviconLinks() {
+function applyFaviconMetaTags() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var _options$url2 = options.url,
       url = _options$url2 === void 0 ? '/static/icons' : _options$url2,
