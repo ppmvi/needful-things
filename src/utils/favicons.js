@@ -1,4 +1,4 @@
-export function applyFaviconMetaTags(options = {}) {
+export function applyFaviconLinks(options = {}) {
   const {
     url = '/static/icons',
     manifest: {
@@ -18,7 +18,7 @@ export function applyFaviconMetaTags(options = {}) {
   ];
 }
 
-export function applyFaviconLinks(options = {}) {
+export function applyFaviconMetaTags(options = {}) {
   const {
     url = '/static/icons',
     color = '#FFFFFF',
