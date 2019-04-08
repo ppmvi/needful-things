@@ -1,12 +1,14 @@
 export function applyFaviconLinks(options = {}) {
   const {
     url = '/static/icons',
-    manifest: {
-      url: manifestUrl = '/static',
-      name: manifestName = 'manifest.json'
-    },
+    manifest = {},
     color = '#FFFFFF'
   } = options;
+
+  const {
+    url: manifestUrl = '/static',
+    name: manifestName = 'manifest.json'
+  } = manifest;
 
   return [
     { rel: 'apple-touch-icon', sizes: '180x180', href: `${url}/apple-touch-icon.png` },
