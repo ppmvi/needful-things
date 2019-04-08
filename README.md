@@ -143,7 +143,7 @@ The object with the configuration which accepts the following attributes:
 
 ### applySplashscreenLinks
 
-This method can be used to add the `twitter` meta tags.
+This method can be used to add meta tags for splashscreens.
 
 #### Usage
 
@@ -163,7 +163,7 @@ link: [
 #### Params
 
 - `url` ***String***  `default: /static/splashscreens`  
-The path for the splashscreens. 
+The path where the splashscreens are located. 
 
 - `additional` ***Array***
 An array with objects for additional splashscreen links. The objects should have the following structure:
