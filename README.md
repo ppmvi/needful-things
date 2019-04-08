@@ -45,8 +45,6 @@ EmailLink: () => import('@ppm-vi/needful-things').then(({ EmailLink }) => EmailL
 - `email` ***String***  
 The actual email which should be used for the `mailto` link.
 
----
-
 ## TelLink
 
 This component provides a simple way to include an `a`-tag with a `tel` link. Whitespaces, `/` and `-` are automatically removed.
