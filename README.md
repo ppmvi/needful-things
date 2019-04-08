@@ -28,9 +28,9 @@ In order for something like generating favicons to work, you need to create a fi
 |-----------|--------|---------|-------------|
 | favicons | object | {} | The configuration for the realfavicongenerator api. https://realfavicongenerator.net/api/non_interactive_api |
 
-## Components
+# Components
 
-### EmailLink
+## EmailLink
 
 This component provides a simple way to include an `a`-tag with a `mailto` link.
 
@@ -47,7 +47,7 @@ The actual email which should be used for the `mailto` link.
 
 ---
 
-### TelLink
+## TelLink
 
 This component provides a simple way to include an `a`-tag with a `tel` link. Whitespaces, `/` and `-` are automatically removed.
 
@@ -70,11 +70,11 @@ Set to `true` if you dont want the component to render the telephone number into
 - `default` The default slot inside the a tag
 
 
-## Meta Tags / Rel Links  Helpers
+# Meta Tags / Rel Links  Helpers
 
 All helpers return arrays or object, prepared for usage with `vue-meta`.
 
-### applyFacebookMetaTags
+## applyFacebookMetaTags
 
 This method can be used to add the `og` meta tags.
 
@@ -108,7 +108,7 @@ The object with the configuration which accepts the following attributes:
 ```
 
 
-### applyTwitterMetaTags
+## applyTwitterMetaTags
 
 This method can be used to add the `twitter` meta tags.
 
@@ -141,7 +141,7 @@ The object with the configuration which accepts the following attributes:
 }
 ```
 
-### applySplashscreenLinks
+## applySplashscreenLinks
 
 This method can be used to add meta tags for splashscreens.
 
@@ -177,7 +177,7 @@ An array with objects for additional splashscreen links. The objects should have
     }
 ```
 
-### applyFaviconMetaTags
+## applyFaviconMetaTags
 
 This method can be used to add all the meta tags necessary for favicons and pwa.
 
@@ -211,7 +211,7 @@ An objects with the configuration. The following options are available:
 }
 ```
 
-### applyFaviconLinks
+## applyFaviconLinks
 
 This method can be used to add all the links necessary for favicons and pwa.
 
