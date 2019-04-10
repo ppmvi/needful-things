@@ -181,7 +181,7 @@ export default class Release {
       const { stderr: stderrAdd } = this.exec('git', 'add', ...files);
       if (stderrAdd) throw new Error(stderrAdd);
   
-      const { stderrCommit } = this.exec('git', 'commit', `-m "chore: Adding newly built files for version ${this.newVersion}"`);
+      const { stderrCommit } = this.exec('git', 'commit', '-m', 'chore: pre release sync');
       if (stderrCommit) throw new Error(stderrCommit);
     }
   }
