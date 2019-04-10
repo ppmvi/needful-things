@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import merge from 'lodash/merge';
 
 const filePath = path.resolve(process.cwd(), './.ppmvi.js');
 let userConfig;
@@ -10,14 +9,14 @@ if (fs.existsSync(filePath)) {
   userConfig = file.favicons || {};
 }
 
-if (userConfig.master_picture && userConfig.master_picture.type === 'inline') {
+if (userConfig && userConfig.master_picture && userConfig.master_picture.type === 'inline') {
   const image = path.resolve(process.cwd(), userConfig.master_picture.content);
   if (fs.existsSync(image)) {
     userConfig.master_picture.content = fs.readFileSync(image).toString('base64');
   }
 }
 
-export default merge({
+const defaultConfig = {
   'api_key': '',
   'master_picture': {
     'type': 'url',
@@ -83,4 +82,6 @@ export default merge({
     'html_code_file': false,
     'use_path_as_is': true
   }
-}, userConfig);
+};
+
+export default { ...defaultConfig, ...userConfig };
