@@ -5,7 +5,7 @@ import conventionalRecommendedBump from 'conventional-recommended-bump';
 import semver from 'semver';
 import pify from 'pify';
 import { rollup, watch } from 'rollup';
-import rollupConfig from './rollup.config';
+import RollupConfig from './rollup.config';
 import Listr from 'listr';
 import spawn from 'cross-spawn';
 import filter from 'lodash/filter';
@@ -87,9 +87,23 @@ export default class Release {
   }
 
   async build(_watch = false) {
+    const bundles = [];
+    const conifgs = [
+      new RollupConfig().config(),
+      new RollupConfig({ minify: true }).config(),
+      new RollupConfig({
+        name: 'cli-needful-things',
+        input: './src/cli/index.js'
+      }).config(),
+      new RollupConfig({
+        minify: true,
+        name: 'cli-needful-things',
+        input: './src/cli/index.js'
+      }).config()
+    ];
+
     try {
-      const bundles = [];
-      for (const config of rollupConfig) {
+      for (const config of conifgs) {
         bundles.push({
           bundle: _watch ? await watch(config) : await rollup(config),
           output: config.output
