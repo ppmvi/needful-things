@@ -170,10 +170,10 @@ export default class Release {
   }
 
   commitChangedFiles() {
-    const { stdout, stderr } = this.exec('git', 'diff', '--name-only');
+    const { stdout, stderr } = this.exec('git', 'status', '--porcelain');
     if (stderr) throw new Error(stderr);
 
-    const files = filter(stdout.split('\n'), file => file.match(/dist/g));
+    const files = filter(stdout.split('\n'), file => file.match(/dist/g)).map(file => file.substring(2, file.length).trim());
 
     this.exec('git', 'checkout', '-b', `release/${this.newVersion}`, this.gitBranch());
 
