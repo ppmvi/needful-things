@@ -22,7 +22,7 @@ Options
 }
 
 if (argv['generate-favicons']) {
-  const favicon = requireModule('../src/favicons');
-  if (typeof argv['generate-favicons'] === 'string') favicon.generate(argv['generate-favicons']);
-  else favicon.generate();
+  const favicon = requireModule('../dist/cli-needful-things.js');
+  if (typeof argv['generate-favicons'] === 'string') favicon.generateFavicons(argv['generate-favicons']);
+  else favicon.generateFavicons();
 }
