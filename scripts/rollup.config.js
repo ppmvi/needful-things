@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import license from 'rollup-plugin-license';
 import defaultsDeep from 'lodash/defaultsDeep';
 import fs from 'fs';
+import builtins from './builtins';
 
 export default class RollupConfig {
   constructor(options = {}) {
@@ -20,8 +21,7 @@ export default class RollupConfig {
 
   external() {
     const external = [
-      'fs',
-      'path',
+      ...builtins,
       ...Object.keys(this.pkg.dependencies),
       ...this.options.external
     ];
