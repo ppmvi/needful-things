@@ -60,7 +60,12 @@ export default class RollupConfig {
         runtimeHelpers: true,
         extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.vue'],
         babelrc: false,
-        presets: [['@babel/preset-env', { modules: false }]]
+        presets: [
+          ['@babel/preset-env', { modules: false }]
+        ],
+        plugins: [
+          '@babel/plugin-transform-runtime'
+        ]
       })
     );
 
