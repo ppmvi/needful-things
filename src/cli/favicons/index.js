@@ -3,7 +3,7 @@ import pify from 'pify';
 import config from './config';
 import ora from 'ora';
 
-export async function generate(path = './static/icons') {
+export default async function generate(path = './static/icons') {
   const watcherSpinner = ora('Generating Favicons').start();
   const generator = rfg.init();
   
