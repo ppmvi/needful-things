@@ -9,19 +9,27 @@ import fs from 'fs';
 
 export default class RollupConfig {
   constructor(options = {}) {
+    this.pkg = JSON.parse(fs.readFileSync('./package.json'));
     this.options = defaultsDeep({}, options, {
       minify: false,
       name: 'needful-things',
       input: './src/index.js',
-      external: [
-        'fs',
-        'path',
-        'ora',
-        'rfg-api',
-        'pify'
-      ]
+      external: []
     });
-    this.pkg = JSON.parse(fs.readFileSync('./package.json'));
+  }
+
+  external() {
+    const external = [
+      'fs',
+      'path',
+      ...Object.keys(this.pkg.dependencies),
+      ...this.options.external
+    ];
+
+    return id => {
+      const pattern = new RegExp(`^(${external.join('|')})($|/)`);
+      return pattern.test(id);
+    };
   }
 
   output() {
@@ -90,7 +98,7 @@ export default class RollupConfig {
     return {
       input: this.options.input,
       output: this.output(),
-      external: this.options.external,
+      external: this.external(),
       plugins: this.plugins()
     };
   }
