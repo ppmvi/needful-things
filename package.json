@@ -21,8 +21,7 @@
   },
   "files": [
     "/dist",
-    "/bin",
-    "/src"
+    "/bin"
   ],
   "scripts": {
     "build": "node -r esm ./scripts/build.js",
