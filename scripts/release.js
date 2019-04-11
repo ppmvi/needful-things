@@ -111,13 +111,15 @@ export default class Release {
   async build(_watch = false) {
     const bundles = [];
     const conifgs = [
-      new RollupConfig().config(),
-      new RollupConfig({ minify: true }).config(),
+      new RollupConfig({ version: this.newVersion }).config(),
+      new RollupConfig({ version: this.newVersion, minify: true }).config(),
       new RollupConfig({
+        version: this.newVersion,
         name: 'cli-needful-things',
         input: './src/cli/index.js'
       }).config(),
       new RollupConfig({
+        version: this.newVersion,
         minify: true,
         name: 'cli-needful-things',
         input: './src/cli/index.js'

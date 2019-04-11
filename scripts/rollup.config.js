@@ -12,6 +12,7 @@ export default class RollupConfig {
   constructor(options = {}) {
     this.pkg = JSON.parse(fs.readFileSync('./package.json'));
     this.options = defaultsDeep({}, options, {
+      version: this.pkg.version,
       minify: false,
       name: 'needful-things',
       input: './src/index.js',
@@ -83,7 +84,7 @@ export default class RollupConfig {
       license({
         banner: [
           '/*!',
-          ` * Needful things v${this.pkg.version}`,
+          ` * Needful things v${this.options.version}`,
           ` * Copyright <%= moment().format('YYYY') %> Florian Weber - ppm visuals & internet GmbH`,
           ` * Released under the MIT License.`,
           '*/'
