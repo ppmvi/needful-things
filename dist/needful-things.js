@@ -1,3 +1,10 @@
+/*!
+ * Needful things v1.3.2
+ * Copyright 2019 Florian Weber - ppm visuals & internet GmbH
+ * Released under the MIT License.
+*/
+import _toConsumableArray from '@babel/runtime/helpers/toConsumableArray';
+
 //
 //
 //
@@ -10,7 +17,7 @@
 //
 //
 //
-var script = {
+const script = {
   props: {
     email: {
       type: String,
@@ -164,7 +171,7 @@ var __vue_is_functional_template__ = false;
 
 /* style inject SSR */
 
-var EmailLink = normalizeComponent_1({
+const EmailLink = normalizeComponent_1({
   render: __vue_render__,
   staticRenderFns: __vue_staticRenderFns__
 }, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, undefined, undefined);
@@ -183,7 +190,7 @@ var EmailLink = normalizeComponent_1({
 //
 //
 //
-var script$1 = {
+const script$1 = {
   props: {
     tel: {
       type: String,
@@ -247,7 +254,7 @@ var __vue_is_functional_template__$1 = false;
 
 /* style inject SSR */
 
-var TelLink = normalizeComponent_1({
+const TelLink = normalizeComponent_1({
   render: __vue_render__$1,
   staticRenderFns: __vue_staticRenderFns__$1
 }, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, undefined, undefined);
@@ -313,26 +320,6 @@ function applyTwitterMetaTags() {
   }].filter(function (tag) {
     return tag;
   });
-}
-
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
-}
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  }
-}
-
-function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
-}
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
 }
 
 function applySplashscreenLinks() {
