@@ -7,7 +7,7 @@ import pify from 'pify';
 import { rollup, watch } from 'rollup';
 import RollupConfig from './rollup.config';
 import Listr from 'listr';
-import spawn from 'cross-spawn';
+import execa from 'execa';
 import filter from 'lodash/filter';
 import standardVersion from 'standard-version';
 import inquirer from 'inquirer';
@@ -29,7 +29,9 @@ export default class Release {
       },
       {
         title: `Fetching changed files from 'dist' folder and commiting them`,
-        task: this.commitChangedFiles.bind(this)
+        task: async() => {
+          await this.commitChangedFiles();
+        }
       },
       {
         title: `Make new release with standard version`,
@@ -40,6 +42,7 @@ export default class Release {
 
   async run() {
     this.newVersion = await this.getNextVersion();
+    const gitBranch = await this.gitBranch();
 
     const { release } = await inquirer.prompt([
       {
@@ -53,7 +56,7 @@ export default class Release {
       const { branch } = await inquirer.prompt([
         {
           type: 'confirm',
-          message: `You are currently in the '${this.gitBranch()}' branch. Do you want to proceed?`,
+          message: `You are currently in the '${gitBranch}' branch. Do you want to proceed?`,
           name: 'branch'
         }
       ]);
@@ -78,9 +81,28 @@ export default class Release {
         ]);
 
         if (revert) {
-          this.exec('git', 'checkout', 'master');
-          this.exec('git', 'branch', '-D', `release/${this.newVersion}`);
-          this.exec('git', 'tag', '-d', `v${this.newVersion}`);
+          const revertTasks = new Listr([
+            {
+              title: 'Checkout master branch',
+              task: async() => {
+                await this.exec('git', 'checkout', 'master');
+              }
+            },
+            {
+              title: `Deleting branch 'release/${this.newVersion}'`,
+              task: async() => {
+                await this.exec('git', 'branch', '-D', `release/${this.newVersion}`);
+              }
+            },
+            {
+              title: `Deleting tag 'v${this.newVersion}'`,
+              task: async() => {
+                await this.exec('git', 'tag', '-d', `v${this.newVersion}`);
+              }
+            }
+          ]);
+
+          revertTasks.run();
         }
       }
     }
@@ -169,19 +191,20 @@ export default class Release {
     }
   }
 
-  commitChangedFiles() {
-    const { stdout, stderr } = this.exec('git', 'status', '--porcelain');
+  async commitChangedFiles() {
+    const { stdout, stderr } = await this.exec('git', 'status', '--porcelain');
     if (stderr) throw new Error(stderr);
 
     const files = filter(stdout.split('\n'), file => file.match(/dist/g)).map(file => file.substring(2, file.length).trim());
 
-    this.exec('git', 'checkout', '-b', `release/${this.newVersion}`, this.gitBranch());
+    const gitBranch = await this.gitBranch();
+    await this.exec('git', 'checkout', '-b', `release/${this.newVersion}`, gitBranch);
 
     if (files.length > 0) {
-      const { stderr: stderrAdd } = this.exec('git', 'add', ...files);
+      const { stderr: stderrAdd } = await this.exec('git', 'add', ...files);
       if (stderrAdd) throw new Error(stderrAdd);
   
-      const { stderrCommit } = this.exec('git', 'commit', '-m', 'chore: pre release sync');
+      const { stderrCommit } = await this.exec('git', 'commit', '-m', 'chore: pre release sync');
       if (stderrCommit) throw new Error(stderrCommit);
     }
   }
@@ -193,19 +216,26 @@ export default class Release {
     });
   }
 
-  exec(command, ...args) {
-    const r = spawn.sync(command, args);
-    const composedCommand = command + ' ' + [ ...args ].join(' ');
-
-    return {
-      stdout: String(r.stdout).trim(),
-      stderr: String(r.stderr).trim(),
-      composedCommand
-    };
+  async exec(command, ...args) {
+    try {
+      const {
+        stdout: _stdout,
+        stderr: _stderr,
+        cmd: composedCommand
+      } = await execa(command, args);
+  
+      return {
+        stdout: String(_stdout).trim(),
+        stderr: String(_stderr).trim(),
+        composedCommand
+      };
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  gitBranch() {
-    const { stdout } = this.exec('git', 'rev-parse', '--abbrev-ref', 'HEAD');
+  async gitBranch() {
+    const { stdout } = await this.exec('git', 'rev-parse', '--abbrev-ref', 'HEAD');
     return stdout;
   }
 }
