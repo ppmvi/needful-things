@@ -27,6 +27,8 @@ In order for something like generating favicons to work, you need to create a fi
 | Attribute | Type | Default | Description |
 |-----------|--------|---------|-------------|
 | favicons | object | {} | The configuration for the realfavicongenerator api. https://realfavicongenerator.net/api/non_interactive_api |
+| tinify | object | {} | Configuration for the tinify cli command |
+| tinify > key | string | empty | The api key for TinyPNG |
 
 # Components
 
