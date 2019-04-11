@@ -16,13 +16,19 @@ Usage
     $ ppmvi
 Options
     --generate-favicons <path>  Generates a set of favicons
+    --tinify                    Tinify images in current working directory with TinyPNG/TinyJPG
     --help, h                   Displays this message
 `);
   process.exit(0);
 }
 
 if (argv['generate-favicons']) {
-  const favicon = requireModule('../dist/cli-needful-things.js');
-  if (typeof argv['generate-favicons'] === 'string') favicon.generateFavicons(argv['generate-favicons']);
-  else favicon.generateFavicons();
+  const { generateFavicons } = requireModule('../dist/cli-needful-things.js');
+  if (typeof argv['generate-favicons'] === 'string') generateFavicons(argv['generate-favicons']);
+  else generateFavicons();
+}
+
+if (argv['tinify']) {
+  const { tinify } = requireModule('../dist/cli-needful-things.js');
+  tinify();
 }
