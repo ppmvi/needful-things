@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [1.4.0](https://github.com/ppmvi/needful-things/compare/v1.3.2...v1.4.0) (2019-04-11)
+
+
+### Bug Fixes
+
+* removed src folder from files in package.json ([e2cb0a1](https://github.com/ppmvi/needful-things/commit/e2cb0a1))
+* **cli:** removed lodash merge from favicon config ([3506e85](https://github.com/ppmvi/needful-things/commit/3506e85))
+* **deps:** replaced cross-spawn with execa ([671a59c](https://github.com/ppmvi/needful-things/commit/671a59c))
+
+
+### Features
+
+* **cli:** added tinify command ([a0229b2](https://github.com/ppmvi/needful-things/commit/a0229b2))
+* **cli:** moved to separate folder ([d9fd1e1](https://github.com/ppmvi/needful-things/commit/d9fd1e1))
+
+
+
 ## [1.3.2](https://github.com/ppmvi/needful-things/compare/v1.3.1...v1.3.2) (2019-04-08)
 
 
