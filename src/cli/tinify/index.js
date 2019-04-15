@@ -8,9 +8,11 @@ import glob from 'glob';
 import logSymbols from 'log-symbols';
 import chalk from 'chalk';
 import reduce from 'lodash/reduce';
+import File from './file';
 
-class Tinify {
+class Tinify extends File {
   constructor() {
+    super();
     this.getConfig();
 
     tinify.key = this.config.tinify.key;
@@ -21,6 +23,7 @@ class Tinify {
       await this.setCompressionCount();
   
       const choices = await this.getFiles();
+
       const { selectedFiles } = await inquirer.prompt([
         {
           type: 'checkbox',
@@ -56,6 +59,7 @@ class Tinify {
   
       if (compress) await this.doCompression(selectedFiles, addCompressFlag);
     } catch (err) {
+      console.log(err);
       console.log(
         logSymbols.error,
         chalk.bold(
@@ -74,15 +78,21 @@ class Tinify {
       const compressFlag = addCompressFlag ? '_compressed' : '';
       const fileBuffer = fs.readFileSync(filePath);
       const spinner = ora(`Compressing ${name}${ext}`).start();
-
-      const result = await new Promise((resolve, reject) => {
-        tinify.fromBuffer(fileBuffer).toBuffer((err, result) => {
-          if (err) reject(err);
-          resolve(result);
+      let result;
+      
+      try {
+        result = await new Promise((resolve, reject) => {
+          tinify.fromBuffer(fileBuffer).toBuffer((err, result) => {
+            if (err) reject(err);
+            resolve(result);
+          });
         });
-      });
+      } catch (err) {
+        spinner.fail(err.message);
+        break;
+      }
 
-      fs.writeFileSync(`${dir}/${name}${compressFlag}${ext}`, result);
+      fs.writeFileSync(`${dir}/${name}${compressFlag}${ext}`, this.addUserComment(result.toString('binary'), filePath));
       spinner.succeed();
     }
   }
@@ -99,10 +109,11 @@ class Tinify {
         result.push(new inquirer.Separator('----------'));
         curPath = path.dirname(name);
       }
+
       result.push({
         name,
         checked: true,
-        disabled: name.match(/compressed/) ? 'Already compressed' : false
+        disabled: name.match(/compressed/) || this.readUserComment(value).includes(File.EXIF_USER_COMMENT) ? 'Already compressed' : false
       });
       return result;
     }, []);

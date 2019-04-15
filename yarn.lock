@@ -3472,6 +3472,11 @@ path-type@^3.0.0:
   dependencies:
     pify "^3.0.0"
 
+piexifjs@^2.0.0-beta.7:
+  version "2.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/piexifjs/-/piexifjs-2.0.0-beta.7.tgz#8e4bcd0fca832103ee2344b936feb7edc9ca3e50"
+  integrity sha512-tki9I5HVAAuXpSigyPNhhXUBbGRIrY998mrej+0wBoUAxsPzlNtdQCSzf0X2StUkNyqQ7znDWute+x/DfPX3Gg==
+
 pify@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/pify/-/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
@@ -3505,6 +3510,11 @@ pkg-dir@^2.0.0:
   integrity sha1-9tXREJ4Z1j7fQo4L1X4Sd3YVM0s=
   dependencies:
     find-up "^2.1.0"
+
+png-metadata@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/png-metadata/-/png-metadata-1.0.2.tgz#8feec9fbc0ddf5b5b779e3bbcc61dc6976dfa1b0"
+  integrity sha512-9evMsSVWxOlMmL/LtFo1LPxixyNg6KmFYIUZ/zdh4GF0kcc9cy7kRmXpCwrLMeh1+kaxFGmbk3WCHKEezSu2Bw==
 
 posix-character-classes@^0.1.0:
   version "0.1.1"

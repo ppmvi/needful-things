@@ -63,7 +63,9 @@
     "inquirer": "6.3.1",
     "minimist": "1.2.0",
     "ora": "3.4.0",
+    "piexifjs": "^2.0.0-beta.7",
     "pify": "4.0.1",
+    "png-metadata": "^1.0.2",
     "rfg-api": "0.5.0",
     "tinify": "1.6.0-beta.2"
   }
