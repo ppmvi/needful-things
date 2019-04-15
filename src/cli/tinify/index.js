@@ -17,61 +17,73 @@ class Tinify {
   }
 
   async run() {
-    await this.setCompressionCount();
-
-    const choices = await this.getFiles();
-    const { selectedFiles } = await inquirer.prompt([
-      {
-        type: 'checkbox',
-        message: 'Select the files which should be compressed.',
-        name: 'selectedFiles',
-        pageSize: choices.length,
-        choices,
-        validate: (answer) => {
-          if (answer.length < 1) {
-            return 'You must at least choose one image.';
+    try {
+      await this.setCompressionCount();
+  
+      const choices = await this.getFiles();
+      const { selectedFiles } = await inquirer.prompt([
+        {
+          type: 'checkbox',
+          message: 'Select the files which should be compressed.',
+          name: 'selectedFiles',
+          pageSize: choices.length,
+          choices,
+          validate: (answer) => {
+            if (answer.length < 1) {
+              return 'You must at least choose one image.';
+            }
+    
+            return true;
           }
-  
-          return true;
         }
-      }
-    ]);
-
-    const { compress, addCompressFlag } = await inquirer.prompt([
-      {
-        type: 'confirm',
-        message: `You are about to compress the selected images. Do you want to continue?`,
-        name: 'compress',
-        default: true
-      },
-      {
-        type: 'confirm',
-        message: `Do you want to add a compressed flag to the file name? eg. test_compressed.png`,
-        name: 'addCompressFlag',
-        default: false
-      }
-    ]);
-
-    if (compress) {
-      for (const file of selectedFiles) {
-        const filePath = process.cwd() + file;
-        const dir = path.dirname(filePath);
-        const ext = path.extname(filePath);
-        const name = path.basename(filePath).replace(ext, '');
-        const compressFlag = addCompressFlag ? '_compressed' : '';
-        const fileBuffer = fs.readFileSync(filePath);
-        const spinner = ora(`Compressing ${name}${ext}`).start();
-
-        const result = await new Promise((resolve, reject) => {
-          tinify.fromBuffer(fileBuffer).toBuffer((err, result) => {
-            if (err) reject(err);
-            resolve(result);
-          });
-        });
+      ]);
   
-        fs.writeFileSync(`${dir}/${name}${compressFlag}${ext}`, result);
-        spinner.succeed();
-      }
+      const { compress, addCompressFlag } = await inquirer.prompt([
+        {
+          type: 'confirm',
+          message: `You are about to compress the selected images. Do you want to continue?`,
+          name: 'compress',
+          default: true
+        },
+        {
+          type: 'confirm',
+          message: `Do you want to add a compressed flag to the file name? eg. test_compressed.png`,
+          name: 'addCompressFlag',
+          default: false,
+          when: ({ compress }) => compress
+        }
+      ]);
+  
+      if (compress) await this.doCompression(selectedFiles, addCompressFlag);
+    } catch (err) {
+      console.log(
+        logSymbols.error,
+        chalk.bold(
+          `Looks like your key is not valid.`
+        )
+      );
+    }
+  }
+
+  async doCompression(selectedFiles = [], addCompressFlag = false) {
+    for (const file of selectedFiles) {
+      const filePath = process.cwd() + file;
+      const dir = path.dirname(filePath);
+      const ext = path.extname(filePath);
+      const name = path.basename(filePath).replace(ext, '');
+      const compressFlag = addCompressFlag ? '_compressed' : '';
+      const fileBuffer = fs.readFileSync(filePath);
+      const spinner = ora(`Compressing ${name}${ext}`).start();
+
+      const result = await new Promise((resolve, reject) => {
+        tinify.fromBuffer(fileBuffer).toBuffer((err, result) => {
+          if (err) reject(err);
+          resolve(result);
+        });
+      });
+
+      fs.writeFileSync(`${dir}/${name}${compressFlag}${ext}`, result);
+      spinner.succeed();
     }
   }
 
@@ -122,12 +134,7 @@ class Tinify {
         );
       }
     } catch (err) {
-      console.log(
-        logSymbols.error,
-        chalk.bold(
-          `Looks like your key is not valid.`
-        )
-      );
+      throw err;
     }
   }
 
