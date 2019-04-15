@@ -67,7 +67,7 @@ export default class RollupConfig {
     plugins.push(
       babel({
         runtimeHelpers: true,
-        extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.vue'],
+        extensions: ['.js', '.vue'],
         babelrc: false,
         presets: [
           ['@babel/preset-env', { modules: false }]
