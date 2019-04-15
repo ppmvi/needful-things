@@ -14,11 +14,17 @@ yarn add @ppm-vi/needful-things
 
 ## Executable
 
-There is also an executable `ppmvi` to run tasks like generating favicons. If you wanna know whats possible, run the following command.
-
+There is also an executable `ppmvi` to run tasks like generating favicons. Execute the following command to use it:
 ```bash
 yarn ppmvi --help
 ```
+
+Currently there are two commands you can use
+
+| Command | Arguments | Description |
+|-----------|--------|---------|
+| --generate-favicons | path to the folder | This command uses the realfavicongenerator api to generate favicons. |
+| --tinify | none | This command uses the TinyPNG api to compress images. Because it is a bad thing to compress your images multiple times, we add a meta tag to every image which lets us identifie if it has already been optimized. |
 
 ## Configuration
 
