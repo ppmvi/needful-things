@@ -24,7 +24,7 @@ Currently there are two commands you can use
 | Command | Arguments | Description |
 |-----------|--------|---------|
 | --generate-favicons | path to the folder | This command uses the realfavicongenerator api to generate favicons. |
-| --tinify | none | This command uses the TinyPNG api to compress images. Because it is a bad thing to compress your images multiple times, we add a meta tag to every image which lets us identifie if it has already been optimized. |
+| --tinify | none | This command uses the TinyPNG api to compress images. Because it is a bad thing to compress your images multiple times, we add a meta tag to every image which lets us identify if it has already been optimized. |
 
 ## Configuration
 
