@@ -23,40 +23,51 @@ class Tinify extends File {
   
       const choices = await this.getFiles();
 
-      const { selectedFiles } = await inquirer.prompt([
-        {
-          type: 'checkbox',
-          message: 'Select the files which should be compressed.',
-          name: 'selectedFiles',
-          pageSize: choices.length,
-          choices,
-          validate: (answer) => {
-            if (answer.length < 1) {
-              return 'You must at least choose one image.';
-            }
+      const count = choices.filter(file => !file.disabled && !(file instanceof inquirer.Separator)).length;
+
+      if (count > 0) {
+        const { selectedFiles } = await inquirer.prompt([
+          {
+            type: 'checkbox',
+            message: 'Select the files which should be compressed.',
+            name: 'selectedFiles',
+            pageSize: choices.length,
+            choices,
+            validate: (answer) => {
+              if (answer.length < 1) {
+                return 'You must at least choose one image.';
+              }
     
-            return true;
+              return true;
+            }
           }
-        }
-      ]);
+        ]);
   
-      const { compress, addCompressFlag } = await inquirer.prompt([
-        {
-          type: 'confirm',
-          message: `You are about to compress the selected images. Do you want to continue?`,
-          name: 'compress',
-          default: true
-        },
-        {
-          type: 'confirm',
-          message: `Do you want to add a compressed flag to the file name? eg. test_compressed.png`,
-          name: 'addCompressFlag',
-          default: false,
-          when: ({ compress }) => compress
-        }
-      ]);
+        const { compress, addCompressFlag } = await inquirer.prompt([
+          {
+            type: 'confirm',
+            message: `You are about to compress the selected images. Do you want to continue?`,
+            name: 'compress',
+            default: true
+          },
+          {
+            type: 'confirm',
+            message: `Do you want to add a compressed flag to the file name? eg. test_compressed.png`,
+            name: 'addCompressFlag',
+            default: false,
+            when: ({ compress }) => compress
+          }
+        ]);
   
-      if (compress) await this.doCompression(selectedFiles, addCompressFlag);
+        if (compress) await this.doCompression(selectedFiles, addCompressFlag);
+      } else {
+        console.log(
+          logSymbols.info,
+          chalk.bold(
+            `You already compressed all images.`
+          )
+        );
+      }
     } catch (err) {
       console.log(err);
       console.log(
