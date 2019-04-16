@@ -7,7 +7,6 @@ import inquirer from 'inquirer';
 import glob from 'glob';
 import logSymbols from 'log-symbols';
 import chalk from 'chalk';
-import reduce from 'lodash/reduce';
 import File from './file';
 
 class Tinify extends File {
@@ -101,7 +100,7 @@ class Tinify extends File {
     const files = await pify(glob)(process.cwd() + '/src/**/*.{png,jpg,jpeg}', {});
     let curPath = '';
     
-    return reduce(files, (result, value, key) => {
+    return files.reduce((result, value, key) => {
       const name = value.replace(process.cwd(), '');
 
       if (!curPath) curPath = path.dirname(name);
