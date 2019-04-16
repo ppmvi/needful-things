@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [1.5.0](https://github.com/ppmvi/needful-things/compare/v1.4.1...v1.5.0) (2019-04-16)
+
+
+### Bug Fixes
+
+* **deps:** pinned dependencies ([cbbd652](https://github.com/ppmvi/needful-things/commit/cbbd652))
+* **deps:** upgraded packages ([b2f663c](https://github.com/ppmvi/needful-things/commit/b2f663c))
+* **tinify:** quit process when all images have already been compressed ([3062680](https://github.com/ppmvi/needful-things/commit/3062680))
+* **tinify:** replaced lodash reduce with native method ([ea81bdb](https://github.com/ppmvi/needful-things/commit/ea81bdb))
+* **tinify:** stop process when key is not valid and stop inquirer when compression should not be started ([313d7de](https://github.com/ppmvi/needful-things/commit/313d7de))
+
+
+### Features
+
+* **tinify:** add meta comment to images after compression ([0b9cfa6](https://github.com/ppmvi/needful-things/commit/0b9cfa6))
+
+
+
 ## [1.4.1](https://github.com/ppmvi/needful-things/compare/v1.4.0...v1.4.1) (2019-04-11)
 
 
