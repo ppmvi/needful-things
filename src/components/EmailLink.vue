@@ -1,7 +1,7 @@
 <template>
   <a
     href=""
-    :aria-label="`E-Mail senden an ${email}`"
+    aria-label="E-Mail senden"
     @click.prevent="sendMail"
   >
     <span>
