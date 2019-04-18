@@ -1,5 +1,5 @@
 /*!
- * Needful things v1.5.0
+ * Needful things v1.5.1
  * Copyright 2019 Florian Weber - ppm visuals & internet GmbH
  * Released under the MIT License.
 */
@@ -138,7 +138,7 @@ var __vue_render__ = function __vue_render__() {
   return _c("a", {
     attrs: {
       href: "",
-      "aria-label": "E-Mail senden an " + _vm.email
+      "aria-label": "E-Mail senden"
     },
     on: {
       click: function click($event) {
@@ -270,7 +270,9 @@ function applyFacebookMetaTags() {
       _meta$image = meta.image,
       image = _meta$image === void 0 ? '' : _meta$image,
       _meta$siteName = meta.siteName,
-      siteName = _meta$siteName === void 0 ? '' : _meta$siteName;
+      siteName = _meta$siteName === void 0 ? '' : _meta$siteName,
+      _meta$url = meta.url,
+      url = _meta$url === void 0 ? '' : _meta$url;
   return [type && {
     property: 'og:type',
     content: type
@@ -286,6 +288,9 @@ function applyFacebookMetaTags() {
   }, siteName && {
     property: 'og:site_name',
     content: siteName
+  }, url && {
+    property: 'og:url',
+    content: url
   }].filter(function (tag) {
     return tag;
   });

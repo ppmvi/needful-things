@@ -1,5 +1,5 @@
 /*!
- * Needful things v1.5.0
+ * Needful things v1.5.1
  * Copyright 2019 Florian Weber - ppm visuals & internet GmbH
  * Released under the MIT License.
 */
