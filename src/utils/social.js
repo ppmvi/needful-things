@@ -4,7 +4,8 @@ export function applyFacebookMetaTags(meta = {}) {
     title = '',
     description = '',
     image = '',
-    siteName = ''
+    siteName = '',
+    url = ''
   } = meta;
 
   return [
@@ -12,7 +13,8 @@ export function applyFacebookMetaTags(meta = {}) {
     title && { property: 'og:title', content: title },
     description && { property: 'og:description', content: description },
     image && { property: 'og:image', content: image },
-    siteName && { property: 'og:site_name', content: siteName }
+    siteName && { property: 'og:site_name', content: siteName },
+    url && { property: 'og:url', content: url }
   ].filter(tag => tag);
 }
 
