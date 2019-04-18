@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.1](https://github.com/ppmvi/needful-things/compare/v1.5.0...v1.5.1) (2019-04-18)
+
+
+### Bug Fixes
+
+* **applyFacebookMetaTags:** added url meta tag ([bea595f](https://github.com/ppmvi/needful-things/commit/bea595f))
+* **EmailLink:** remove email from aria-label ([c8c6517](https://github.com/ppmvi/needful-things/commit/c8c6517))
+
+
+
 # [1.5.0](https://github.com/ppmvi/needful-things/compare/v1.4.1...v1.5.0) (2019-04-16)
 
 
