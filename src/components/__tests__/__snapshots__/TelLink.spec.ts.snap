@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmailLink.vue renders correctly 1`] = `
+<a
+  aria-label="Die Nummer (0) 123-456 789 anrufen"
+  href=""
+>
+  <span>
+    (0) 123-456 789
+  </span>
+   
+</a>
+`;
