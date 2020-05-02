@@ -11,5 +11,5 @@ export {
   applyTwitterMetaTags,
   applySplashscreenLinks,
   applyFaviconLinks,
-  applyFaviconMetaTags
+  applyFaviconMetaTags,
 };

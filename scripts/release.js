@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import 'reflect-metadata';
 import packageJson from '../package.json';
 import conventionalRecommendedBump from 'conventional-recommended-bump';
 import semver from 'semver';
@@ -112,17 +113,10 @@ export default class Release {
     const bundles = [];
     const conifgs = [
       new RollupConfig({ version: this.newVersion }).config(),
-      new RollupConfig({ version: this.newVersion, minify: true }).config(),
       new RollupConfig({
         version: this.newVersion,
         name: 'cli-needful-things',
-        input: './src/cli/index.js'
-      }).config(),
-      new RollupConfig({
-        version: this.newVersion,
-        minify: true,
-        name: 'cli-needful-things',
-        input: './src/cli/index.js'
+        input: './src/cli/index.ts'
       }).config()
     ];
 
@@ -138,38 +132,35 @@ export default class Release {
         const watcherSpinner = ora('Starting watching').start();
 
         for (const { bundle, output } of bundles) {
-          // There is no need for building min files in development
-          if (!output.file.includes('min')) {
-            bundle.on('event', event => {
-              switch (event.code) {
-              case 'START':
-                watcherSpinner.start();
-                watcherSpinner.text = `Watching for changes`;
-                break;
-  
-              case 'BUNDLE_START':
-                console.clear();
-                watcherSpinner.text = `Building bundle`;
-                break;
-  
-              case 'BUNDLE_END':
-                watcherSpinner.succeed(`Bundle built`);
-                break;
-  
-              case 'END':
-                break;
-  
-              case 'ERROR':
-                return console.log(event.error);
-  
-              case 'FATAL':
-                return console.log(event.error);
-  
-              default:
-                return console.log(JSON.stringify(event));
-              }
-            });
-          }
+          bundle.on('event', event => {
+            switch (event.code) {
+            case 'START':
+              watcherSpinner.start();
+              watcherSpinner.text = `Watching for changes`;
+              break;
+
+            case 'BUNDLE_START':
+              console.clear();
+              watcherSpinner.text = `Building bundle`;
+              break;
+
+            case 'BUNDLE_END':
+              watcherSpinner.succeed(`Bundle built`);
+              break;
+
+            case 'END':
+              break;
+
+            case 'ERROR':
+              return console.log(event.error);
+
+            case 'FATAL':
+              return console.log(event.error);
+
+            default:
+              return console.log(JSON.stringify(event));
+            }
+          });
         }
       } else {
         for (const { bundle, output } of bundles) {

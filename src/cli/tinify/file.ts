@@ -6,13 +6,13 @@ import { insert, dump, load, TagValues } from 'piexifjs';
 export default class File {
   static get EXIF_USER_COMMENT() {
     return 'Compressed with TinyPNG by @ppmvi/needful-things';
-  };
+  }
 
   static get PNG_TEXT_CHUNKG_FLAG() {
     return 'tEXt';
-  };
+  }
 
-  readUserComment(filePath) {
+  readUserComment(filePath: string) {
     let userComment = '';
     const ext = path.extname(filePath);
     const file = fs.readFileSync(filePath).toString('binary');
@@ -20,16 +20,20 @@ export default class File {
     if (ext === '.png') {
       const list = png.splitChunk(file);
       const chunk = this.getUserCommentFromPngChunks(list);
-      userComment = (chunk) ? chunk.data : '';
+      userComment = chunk ? chunk.data : '';
     } else {
-      const exifData = (ext !== '.png') ? load(file)['Exif'] : undefined;
-      userComment = (typeof exifData !== 'undefined' && exifData[TagValues.ExifIFD.UserComment]) ? exifData[TagValues.ExifIFD.UserComment] : '';
+      const exifData = ext !== '.png' ? load(file)['Exif'] : undefined;
+      userComment =
+        typeof exifData !== 'undefined' &&
+        exifData[TagValues.ExifIFD.UserComment]
+          ? exifData[TagValues.ExifIFD.UserComment]
+          : '';
     }
 
     return userComment;
   }
 
-  addUserComment(fileBuffer, filePath) {
+  addUserComment(fileBuffer: string, filePath: string) {
     const ext = path.extname(filePath);
     let newData = fileBuffer;
 
@@ -37,16 +41,19 @@ export default class File {
       const list = png.splitChunk(fileBuffer);
       if (!this.getUserCommentFromPngChunks(list)) {
         const end = list.pop();
-        const newchunk = png.createChunk(File.PNG_TEXT_CHUNKG_FLAG, File.EXIF_USER_COMMENT);
+        const newchunk = png.createChunk(
+          File.PNG_TEXT_CHUNKG_FLAG,
+          File.EXIF_USER_COMMENT
+        );
         list.push(newchunk);
         list.push(end);
         newData = png.joinChunk(list);
       }
     } else {
       const exifData = {
-        'Exif': {
-          [TagValues.ExifIFD.UserComment]: File.EXIF_USER_COMMENT
-        }
+        Exif: {
+          [TagValues.ExifIFD.UserComment]: File.EXIF_USER_COMMENT,
+        },
       };
       const exifBytes = dump(exifData);
       newData = insert(exifBytes, fileBuffer);
@@ -55,7 +62,7 @@ export default class File {
     return Buffer.from(newData, 'binary');
   }
 
-  getUserCommentFromPngChunks(list) {
+  getUserCommentFromPngChunks(list: PngChunk[]) {
     let chunk;
     for (const item of list) {
       if (item.type === File.PNG_TEXT_CHUNKG_FLAG) {
@@ -65,4 +72,9 @@ export default class File {
     }
     return chunk;
   }
+}
+
+interface PngChunk {
+  type: string;
+  data: string;
 }
