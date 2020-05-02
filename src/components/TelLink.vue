@@ -5,7 +5,7 @@
     @click.prevent="call"
   >
     <span
-      v-if="!wrapper"
+      v-if="!doNotShowTel"
       v-text="tel"
     />
     <slot />
@@ -18,11 +18,14 @@
   @Component
   export default class TelLink extends Vue {
     @Prop({ required: true }) tel!: string;
-    @Prop() wrapper!: boolean;
+    @Prop() doNotShowTel!: boolean;
+
+    get callableTel() {
+      return this.tel.replace(/[\s\/-]/g, '').replace(/\(.*\)/g, '');
+    }
 
     call() {
-      const tel = this.tel.replace(/[\s\/-]/g, '').replace(/\(.*\)/g, '');
-      window.location.href = `tel:${tel}`;
+      window.location.href = `tel:${this.callableTel}`;
     }
   };
 </script>
