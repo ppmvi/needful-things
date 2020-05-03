@@ -1,10 +1,4 @@
-import {
-  MetaPropertyCharset,
-  MetaPropertyEquiv,
-  MetaPropertyName,
-  MetaPropertyMicrodata,
-  MetaPropertyProperty,
-} from 'vue-meta';
+import { MetaPropertyProperty } from 'vue-meta';
 
 interface FacebookMetaTags {
   type?: string;
@@ -25,13 +19,7 @@ interface TwitterMetaTags {
 
 export function applyFacebookMetaTags(
   meta: FacebookMetaTags = {}
-): (
-  | MetaPropertyCharset
-  | MetaPropertyEquiv
-  | MetaPropertyName
-  | MetaPropertyMicrodata
-  | MetaPropertyProperty
-)[] {
+): MetaPropertyProperty[] {
   const {
     type = '',
     title = '',
@@ -48,18 +36,12 @@ export function applyFacebookMetaTags(
     { property: 'og:image', content: image },
     { property: 'og:site_name', content: siteName },
     { property: 'og:url', content: url },
-  ].filter((tag) => tag);
+  ];
 }
 
 export function applyTwitterMetaTags(
   meta: TwitterMetaTags = {}
-): (
-  | MetaPropertyCharset
-  | MetaPropertyEquiv
-  | MetaPropertyName
-  | MetaPropertyMicrodata
-  | MetaPropertyProperty
-)[] {
+): MetaPropertyProperty[] {
   const {
     title = '',
     description = '',
@@ -74,5 +56,5 @@ export function applyTwitterMetaTags(
     { property: 'twitter:image', content: image },
     { property: 'twitter:site', content: site },
     { property: 'twitter:creator', content: creator },
-  ].filter((tag) => tag);
+  ];
 }

@@ -1,7 +1,9 @@
+import { LinkPropertyBase, LinkPropertyHref } from 'vue-meta';
+
 export function applySplashscreenLinks(
   url = '/static/splashscreens',
   additional = []
-) {
+): (LinkPropertyBase | LinkPropertyHref)[] {
   const splashscreens = [];
   const rel = 'apple-touch-startup-image';
   const screens = [
