@@ -16,5 +16,6 @@ module.exports = {
   moduleDirectories: [
     'node_modules'
   ],
+  modulePathIgnorePatterns: ["<rootDir>/dist/"],
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$"
 };
