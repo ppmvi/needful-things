@@ -1,3 +1,14 @@
+import {
+  LinkPropertyBase,
+  LinkPropertyHref,
+  LinkPropertyHrefCallback,
+  MetaPropertyCharset,
+  MetaPropertyEquiv,
+  MetaPropertyName,
+  MetaPropertyMicrodata,
+  MetaPropertyProperty,
+} from 'vue-meta';
+
 interface FaviconLinksOptions {
   url?: string;
   manifest?: {
@@ -13,7 +24,9 @@ interface FaviconMetaTagsOptions {
   statusBarStyle?: string;
 }
 
-export function applyFaviconLinks(options: FaviconLinksOptions = {}) {
+export function applyFaviconLinks(
+  options: FaviconLinksOptions = {}
+): (LinkPropertyBase | LinkPropertyHref | LinkPropertyHrefCallback)[] {
   const { url = '/static/icons', manifest = {}, color = '#FFFFFF' } = options;
 
   const {
@@ -45,7 +58,15 @@ export function applyFaviconLinks(options: FaviconLinksOptions = {}) {
   ];
 }
 
-export function applyFaviconMetaTags(options: FaviconMetaTagsOptions = {}) {
+export function applyFaviconMetaTags(
+  options: FaviconMetaTagsOptions = {}
+): (
+  | MetaPropertyCharset
+  | MetaPropertyEquiv
+  | MetaPropertyName
+  | MetaPropertyMicrodata
+  | MetaPropertyProperty
+)[] {
   const {
     url = '/static/icons',
     color = '#FFFFFF',

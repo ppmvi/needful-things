@@ -1,3 +1,11 @@
+import {
+  MetaPropertyCharset,
+  MetaPropertyEquiv,
+  MetaPropertyName,
+  MetaPropertyMicrodata,
+  MetaPropertyProperty,
+} from 'vue-meta';
+
 interface FacebookMetaTags {
   type?: string;
   title?: string;
@@ -15,7 +23,15 @@ interface TwitterMetaTags {
   creator?: string;
 }
 
-export function applyFacebookMetaTags(meta: FacebookMetaTags = {}) {
+export function applyFacebookMetaTags(
+  meta: FacebookMetaTags = {}
+): (
+  | MetaPropertyCharset
+  | MetaPropertyEquiv
+  | MetaPropertyName
+  | MetaPropertyMicrodata
+  | MetaPropertyProperty
+)[] {
   const {
     type = '',
     title = '',
@@ -26,16 +42,24 @@ export function applyFacebookMetaTags(meta: FacebookMetaTags = {}) {
   } = meta;
 
   return [
-    type && { property: 'og:type', content: type },
-    title && { property: 'og:title', content: title },
-    description && { property: 'og:description', content: description },
-    image && { property: 'og:image', content: image },
-    siteName && { property: 'og:site_name', content: siteName },
-    url && { property: 'og:url', content: url },
+    { property: 'og:type', content: type },
+    { property: 'og:title', content: title },
+    { property: 'og:description', content: description },
+    { property: 'og:image', content: image },
+    { property: 'og:site_name', content: siteName },
+    { property: 'og:url', content: url },
   ].filter((tag) => tag);
 }
 
-export function applyTwitterMetaTags(meta: TwitterMetaTags = {}) {
+export function applyTwitterMetaTags(
+  meta: TwitterMetaTags = {}
+): (
+  | MetaPropertyCharset
+  | MetaPropertyEquiv
+  | MetaPropertyName
+  | MetaPropertyMicrodata
+  | MetaPropertyProperty
+)[] {
   const {
     title = '',
     description = '',
@@ -45,10 +69,10 @@ export function applyTwitterMetaTags(meta: TwitterMetaTags = {}) {
   } = meta;
 
   return [
-    title && { property: 'twitter:title', content: title },
-    description && { property: 'twitter:description', content: description },
-    image && { property: 'twitter:image', content: image },
-    site && { property: 'twitter:site', content: site },
-    creator && { property: 'twitter:creator', content: creator },
+    { property: 'twitter:title', content: title },
+    { property: 'twitter:description', content: description },
+    { property: 'twitter:image', content: image },
+    { property: 'twitter:site', content: site },
+    { property: 'twitter:creator', content: creator },
   ].filter((tag) => tag);
 }
