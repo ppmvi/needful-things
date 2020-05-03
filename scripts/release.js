@@ -111,7 +111,7 @@ export default class Release {
 
   async build(_watch = false) {
     const bundles = [];
-    const conifgs = [
+    const configs = [
       new RollupConfig({ version: this.newVersion }).config(),
       new RollupConfig({
         version: this.newVersion,
@@ -121,7 +121,7 @@ export default class Release {
     ];
 
     try {
-      for (const config of conifgs) {
+      for (const config of configs) {
         bundles.push({
           bundle: _watch ? await watch(config) : await rollup(config),
           output: config.output

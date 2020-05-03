@@ -3,6 +3,7 @@ import vue from 'rollup-plugin-vue';
 import license from 'rollup-plugin-license';
 import defaultsDeep from 'lodash/defaultsDeep';
 import typescript from 'rollup-plugin-typescript2';
+import { terser } from "rollup-plugin-terser";
 import fs from 'fs';
 import builtins from './builtins';
 
@@ -63,6 +64,8 @@ export default class RollupConfig {
         compileTemplate: true
       })
     );
+
+    plugins.push(terser());
 
     plugins.push(
       license({
