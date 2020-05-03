@@ -4,7 +4,7 @@ export function applySplashscreenLinks(
   url = '/static/splashscreens',
   additional = []
 ): (LinkPropertyBase | LinkPropertyHref)[] {
-  const splashscreens = [];
+  const splashscreens: (LinkPropertyBase | LinkPropertyHref)[] = [];
   const rel = 'apple-touch-startup-image';
   const screens = [
     {
