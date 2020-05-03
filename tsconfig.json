@@ -17,7 +17,8 @@
     "sourceRoot": "src",
     "strict": true,
     "removeComments": false,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noImplicitAny": false
   },
   "include": [
     "src"
