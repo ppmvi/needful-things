@@ -15,10 +15,10 @@
   "bugs": {
     "url": "https://github.com/ppmvi/needful-things/issues"
   },
-  "main": "dist/needful-things/cjs/index.js",
+  "main": "dist/needful-things/cjs/index.min.js",
   "types": "dist/needful-things/types/index.d.ts",
   "typings": "dist/needful-things/types/index.d.ts",
-  "module": "dist/needful-things/esm/index.js",
+  "module": "dist/needful-things/esm/index.min.js",
   "bin": {
     "ppmvi": "./bin/ppmvi"
   },
@@ -62,10 +62,8 @@
     "tslint-plugin-prettier": "2.3.0",
     "typescript": "3.8.3",
     "vue": "2.6.11",
-    "vue-class-component": "7.2.3",
     "vue-jest": "3.0.5",
     "vue-meta": "^2.3.3",
-    "vue-property-decorator": "8.4.2",
     "vue-template-compiler": "2.6.11"
   },
   "dependencies": {
@@ -78,6 +76,7 @@
     "pify": "5.0.0",
     "png-metadata": "1.0.2",
     "rfg-api": "0.5.1",
-    "tinify": "1.6.0-beta.2"
+    "tinify": "1.6.0-beta.2",
+    "vue-property-decorator": "^8.4.2"
   }
 }

@@ -113,7 +113,14 @@ export default class Release {
     const bundles = [];
     const configs = [
       new RollupConfig({ version: this.newVersion }).config(),
+      new RollupConfig({ minify: true, version: this.newVersion }).config(),
       new RollupConfig({
+        version: this.newVersion,
+        name: 'cli-needful-things',
+        input: './src/cli/index.ts'
+      }).config(),
+      new RollupConfig({
+        minify: true,
         version: this.newVersion,
         name: 'cli-needful-things',
         input: './src/cli/index.ts'
@@ -164,7 +171,9 @@ export default class Release {
         }
       } else {
         for (const { bundle, output } of bundles) {
-          await bundle.write(output);
+          for(const o of output) {
+            await bundle.write(o);
+          }
         }
       }
     } catch (err) {

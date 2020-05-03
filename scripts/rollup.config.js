@@ -12,6 +12,7 @@ export default class RollupConfig {
     this.formats = ['cjs', 'esm'];
     this.pkg = JSON.parse(fs.readFileSync('./package.json'));
     this.options = defaultsDeep({}, options, {
+      minify: false,
       version: this.pkg.version,
       name: 'needful-things',
       input: './src/index.ts',
@@ -34,7 +35,7 @@ export default class RollupConfig {
 
   output() {
     return this.formats.map(format => ({
-      file: `dist/${this.options.name}/${format}/index.js`,
+      file: `dist/${this.options.name}/${format}/index${this.options.minify ? '.min' : ''}.js`,
       format,
       name: this.options.name,
       sourcemap: true,
@@ -65,7 +66,7 @@ export default class RollupConfig {
       })
     );
 
-    plugins.push(terser());
+    if(this.options.minify) plugins.push(terser());
 
     plugins.push(
       license({
