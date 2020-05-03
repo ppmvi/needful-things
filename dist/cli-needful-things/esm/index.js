@@ -3,7 +3,19 @@
  * Copyright 2020 Florian Weber - ppm visuals & internet GmbH
  * Released under the MIT License.
 */
-import e from"rfg-api";import t from"pify";import n from"fs";import r from"path";import o from"ora";import s from"tinify";import i from"glob";import a from"log-symbols";import c from"chalk";import u from"png-metadata";import{load as l,TagValues as p,dump as f,insert as m}from"piexifjs";import{prompt as d,Separator as h}from"inquirer";
+import rfg from 'rfg-api';
+import pify from 'pify';
+import fs from 'fs';
+import path from 'path';
+import ora from 'ora';
+import tinify from 'tinify';
+import glob from 'glob';
+import logSymbols from 'log-symbols';
+import chalk from 'chalk';
+import png from 'png-metadata';
+import { load, TagValues, dump, insert } from 'piexifjs';
+import { prompt, Separator } from 'inquirer';
+
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -17,5 +29,494 @@ MERCHANTABLITY OR NON-INFRINGEMENT.
 
 See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
-***************************************************************************** */var _=function(e,t){return(_=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(e,t){e.__proto__=t}||function(e,t){for(var n in t)t.hasOwnProperty(n)&&(e[n]=t[n])})(e,t)};var g=function(){return(g=Object.assign||function(e){for(var t,n=1,r=arguments.length;n<r;n++)for(var o in t=arguments[n])Object.prototype.hasOwnProperty.call(t,o)&&(e[o]=t[o]);return e}).apply(this,arguments)};function y(e,t,n,r){return new(n||(n=Promise))((function(o,s){function i(e){try{c(r.next(e))}catch(e){s(e)}}function a(e){try{c(r.throw(e))}catch(e){s(e)}}function c(e){var t;e.done?o(e.value):(t=e.value,t instanceof n?t:new n((function(e){e(t)}))).then(i,a)}c((r=r.apply(e,t||[])).next())}))}function v(e,t){var n,r,o,s,i={label:0,sent:function(){if(1&o[0])throw o[1];return o[1]},trys:[],ops:[]};return s={next:a(0),throw:a(1),return:a(2)},"function"==typeof Symbol&&(s[Symbol.iterator]=function(){return this}),s;function a(s){return function(a){return function(s){if(n)throw new TypeError("Generator is already executing.");for(;i;)try{if(n=1,r&&(o=2&s[0]?r.return:s[0]?r.throw||((o=r.return)&&o.call(r),0):r.next)&&!(o=o.call(r,s[1])).done)return o;switch(r=0,o&&(s=[2&s[0],o.value]),s[0]){case 0:case 1:o=s;break;case 4:return i.label++,{value:s[1],done:!1};case 5:i.label++,r=s[1],s=[0];continue;case 7:s=i.ops.pop(),i.trys.pop();continue;default:if(!(o=i.trys,(o=o.length>0&&o[o.length-1])||6!==s[0]&&2!==s[0])){i=0;continue}if(3===s[0]&&(!o||s[1]>o[0]&&s[1]<o[3])){i.label=s[1];break}if(6===s[0]&&i.label<o[1]){i.label=o[1],o=s;break}if(o&&i.label<o[2]){i.label=o[2],i.ops.push(s);break}o[2]&&i.ops.pop(),i.trys.pop();continue}s=t.call(e,i)}catch(e){s=[6,e],r=0}finally{n=o=0}if(5&s[0])throw s[1];return{value:s[0]?s[1]:void 0,done:!0}}([s,a])}}}var b,F=r.resolve(process.cwd(),"./.ppmvi.js");n.existsSync(F)&&(b=require(F).default.favicons||{});if(b&&b.master_picture&&"inline"===b.master_picture.type){var w=r.resolve(process.cwd(),b.master_picture.content);n.existsSync(w)&&(b.master_picture.content=n.readFileSync(w).toString("base64"))}var C=g(g({},{api_key:"",master_picture:{type:"url",url:""},files_location:{type:"path",path:"/static/icons"},favicon_design:{desktop_browser:{},ios:{picture_aspect:"background_and_margin",margin:"8",background_color:"#FFFFFF",assets:{ios6_and_prior_icons:!1,ios7_and_later_icons:!1,precomposed_icons:!1,declare_only_default_icon:!0}},windows:{picture_aspect:"white_silhouette",background_color:"#FFFFFF",assets:{windows_80_ie_10_tile:!0,windows_10_ie_11_edge_tiles:{small:!1,medium:!0,big:!1,rectangle:!1}}},android_chrome:{picture_aspect:"background_and_margin",margin:"12",background_color:"#FFFFFF",theme_color:"#FFFFFF",manifest:{name:"My sample app",display:"standalone",orientation:"portrait",start_url:"/"},assets:{legacy_icon:!1,low_resolution_icons:!1}},safari_pinned_tab:{picture_aspect:"black_and_white",threshold:60,theme_color:"#FFFFFF"}},settings:{compression:"5",scaling_algorithm:"Mitchell",error_on_image_too_small:!0,readme_file:!1,html_code_file:!1,use_path_as_is:!0}}),b);function k(n){return void 0===n&&(n="./static/icons"),y(this,void 0,void 0,(function(){var r,s,i;return v(this,(function(a){switch(a.label){case 0:r=o("Generating Favicons").start(),s=e.init(),a.label=1;case 1:return a.trys.push([1,3,,4]),[4,t(s.generateFavicon)(C,n)];case 2:return a.sent(),r.succeed(),[3,4];case 3:return i=a.sent(),r.fail(i.message),[3,4];case 4:return[2]}}))}))}var E=function(){function e(){}return Object.defineProperty(e,"EXIF_USER_COMMENT",{get:function(){return"Compressed with TinyPNG by @ppmvi/needful-things"},enumerable:!0,configurable:!0}),Object.defineProperty(e,"PNG_TEXT_CHUNKG_FLAG",{get:function(){return"tEXt"},enumerable:!0,configurable:!0}),e.prototype.readUserComment=function(e){var t="",o=r.extname(e),s=n.readFileSync(e).toString("binary");if(".png"===o){var i=u.splitChunk(s),a=this.getUserCommentFromPngChunks(i);t=a?a.data:""}else{var c=".png"!==o?l(s).Exif:void 0;t=void 0!==c&&c[p.ExifIFD.UserComment]?c[p.ExifIFD.UserComment]:""}return t},e.prototype.addUserComment=function(t,n){var o,s=t;if(".png"===r.extname(n)){var i=u.splitChunk(t);if(!this.getUserCommentFromPngChunks(i)){var a=i.pop(),c=u.createChunk(e.PNG_TEXT_CHUNKG_FLAG,e.EXIF_USER_COMMENT);i.push(c),i.push(a),s=u.joinChunk(i)}}else{var l={Exif:(o={},o[p.ExifIFD.UserComment]=e.EXIF_USER_COMMENT,o)},d=f(l);s=m(d,t)}return Buffer.from(s,"binary")},e.prototype.getUserCommentFromPngChunks=function(t){for(var n,r=0,o=t;r<o.length;r++){var s=o[r];if(s.type===e.PNG_TEXT_CHUNKG_FLAG){n=s;break}}return n},e}(),x=function(e){function u(){var t=e.call(this)||this;return t.config={},t.getConfig(),t}return function(e,t){function n(){this.constructor=e}_(e,t),e.prototype=null===t?Object.create(t):(n.prototype=t.prototype,new n)}(u,e),u.prototype.run=function(){return y(this,void 0,void 0,(function(){var e,t,n,r,o,s;return v(this,(function(i){switch(i.label){case 0:return i.trys.push([0,9,,10]),[4,this.setCompressionCount()];case 1:return i.sent(),[4,this.getFiles()];case 2:return e=i.sent(),e.filter((function(e){return!(e instanceof h||e.disabled)})).length>0?[4,d([{type:"checkbox",message:"Select the files which should be compressed.",name:"selectedFiles",pageSize:e.length,choices:e,validate:function(e){return!(e.length<1)||"You must at least choose one image."}}])]:[3,7];case 3:return t=i.sent().selectedFiles,[4,d([{type:"confirm",message:"You are about to compress the selected images. Do you want to continue?",name:"compress",default:!0},{type:"confirm",message:"Do you want to add a compressed flag to the file name? eg. test_compressed.png",name:"addCompressFlag",default:!1,when:function(e){return e.compress}}])];case 4:return n=i.sent(),r=n.compress,o=n.addCompressFlag,r?[4,this.doCompression(t,o)]:[3,6];case 5:i.sent(),i.label=6;case 6:return[3,8];case 7:console.log(a.info,c.bold("You already compressed all images.")),i.label=8;case 8:return[3,10];case 9:return s=i.sent(),console.log(s),console.log(a.error,c.bold("Looks like your key is not valid.")),[3,10];case 10:return[2]}}))}))},u.prototype.doCompression=function(e,t){return void 0===e&&(e=[]),void 0===t&&(t=!1),y(this,void 0,void 0,(function(){var i,a,c,u,l;return v(this,(function(p){switch(p.label){case 0:i=function(e){var i,c,u,l,p,f,m,d,h;return v(this,(function(_){switch(_.label){case 0:i=process.cwd()+e,c=r.dirname(i),u=r.extname(i),l=r.basename(i).replace(u,""),p=t?"_compressed":"",f=n.readFileSync(i),m=o("Compressing "+l+u).start(),d=void 0,_.label=1;case 1:return _.trys.push([1,3,,4]),[4,new Promise((function(e,t){s.fromBuffer(f).toBuffer((function(n,r){n&&t(n),e(r)}))}))];case 2:return d=_.sent(),[3,4];case 3:return h=_.sent(),m.fail(h.message),[2,"break"];case 4:return n.writeFileSync(c+"/"+l+p+u,a.addUserComment(d.toString(),i)),m.succeed(),[2]}}))},a=this,c=0,u=e,p.label=1;case 1:return c<u.length?(l=u[c],[5,i(l)]):[3,4];case 2:if("break"===p.sent())return[3,4];p.label=3;case 3:return c++,[3,1];case 4:return[2]}}))}))},u.prototype.getFiles=function(){return y(this,void 0,void 0,(function(){var e,n,o=this;return v(this,(function(s){switch(s.label){case 0:return[4,t(i)(process.cwd()+"/src/**/*.{png,jpg,jpeg}",{})];case 1:return e=s.sent(),n="",[2,e.reduce((function(e,t,s){var i=t.replace(process.cwd(),"");return n?n&&n!==r.dirname(i)&&(e.push(new h("----------")),n=r.dirname(i)):n=r.dirname(i),e.push({name:i,checked:!0,disabled:!(!i.match(/compressed/)&&!o.readUserComment(t).includes(E.EXIF_USER_COMMENT))&&"Already compressed"}),e}),[])]}}))}))},u.prototype.setCompressionCount=function(){return y(this,void 0,void 0,(function(){return v(this,(function(e){switch(e.label){case 0:return e.trys.push([0,2,,3]),[4,new Promise((function(e,t){s.validate((function(n){n&&t(n),e()}))}))];case 1:return e.sent(),this.compressionsThisMonth=s.compressionCount,void 0===this.compressionsThisMonth?console.log(a.info,c.bold("Couldnt get the compressions count. You probably havent done any compressions.")):console.log(a.info,c.bold("You already used "+this.compressionsThisMonth+"/500 free compressions this month.")),[3,3];case 2:throw e.sent();case 3:return[2]}}))}))},u.prototype.getConfig=function(){var e=r.resolve(process.cwd(),"./.ppmvi.js"),t={};n.existsSync(e)&&(t=require(e).default),this.config=g(g({},{tinify:{key:""}}),t)},u}(E);function S(){return y(this,void 0,void 0,(function(){return v(this,(function(e){switch(e.label){case 0:return[4,(new x).run()];case 1:return e.sent(),[2]}}))}))}export{k as generateFavicons,S as tinify};
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+var filePath = path.resolve(process.cwd(), './.ppmvi.js');
+var userConfig;
+if (fs.existsSync(filePath)) {
+    var file = require(filePath).default;
+    userConfig = file.favicons || {};
+}
+if (userConfig &&
+    userConfig.master_picture &&
+    userConfig.master_picture.type === 'inline') {
+    var image = path.resolve(process.cwd(), userConfig.master_picture.content);
+    if (fs.existsSync(image)) {
+        userConfig.master_picture.content = fs
+            .readFileSync(image)
+            .toString('base64');
+    }
+}
+var defaultConfig = {
+    api_key: '',
+    master_picture: {
+        type: 'url',
+        url: '',
+    },
+    files_location: {
+        type: 'path',
+        path: '/static/icons',
+    },
+    favicon_design: {
+        desktop_browser: {},
+        ios: {
+            picture_aspect: 'background_and_margin',
+            margin: '8',
+            background_color: '#FFFFFF',
+            assets: {
+                ios6_and_prior_icons: false,
+                ios7_and_later_icons: false,
+                precomposed_icons: false,
+                declare_only_default_icon: true,
+            },
+        },
+        windows: {
+            picture_aspect: 'white_silhouette',
+            background_color: '#FFFFFF',
+            assets: {
+                windows_80_ie_10_tile: true,
+                windows_10_ie_11_edge_tiles: {
+                    small: false,
+                    medium: true,
+                    big: false,
+                    rectangle: false,
+                },
+            },
+        },
+        android_chrome: {
+            picture_aspect: 'background_and_margin',
+            margin: '12',
+            background_color: '#FFFFFF',
+            theme_color: '#FFFFFF',
+            manifest: {
+                name: 'My sample app',
+                display: 'standalone',
+                orientation: 'portrait',
+                start_url: '/',
+            },
+            assets: {
+                legacy_icon: false,
+                low_resolution_icons: false,
+            },
+        },
+        safari_pinned_tab: {
+            picture_aspect: 'black_and_white',
+            threshold: 60,
+            theme_color: '#FFFFFF',
+        },
+    },
+    settings: {
+        compression: '5',
+        scaling_algorithm: 'Mitchell',
+        error_on_image_too_small: true,
+        readme_file: false,
+        html_code_file: false,
+        use_path_as_is: true,
+    },
+};
+var config = __assign(__assign({}, defaultConfig), userConfig);
+
+function generate(path) {
+    if (path === void 0) { path = './static/icons'; }
+    return __awaiter(this, void 0, void 0, function () {
+        var watcherSpinner, generator, err_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    watcherSpinner = ora('Generating Favicons').start();
+                    generator = rfg.init();
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, pify(generator.generateFavicon)(config, path)];
+                case 2:
+                    _a.sent();
+                    watcherSpinner.succeed();
+                    return [3 /*break*/, 4];
+                case 3:
+                    err_1 = _a.sent();
+                    watcherSpinner.fail(err_1.message);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+
+var File = /** @class */ (function () {
+    function File() {
+    }
+    Object.defineProperty(File, "EXIF_USER_COMMENT", {
+        get: function () {
+            return 'Compressed with TinyPNG by @ppmvi/needful-things';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(File, "PNG_TEXT_CHUNKG_FLAG", {
+        get: function () {
+            return 'tEXt';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    File.prototype.readUserComment = function (filePath) {
+        var userComment = '';
+        var ext = path.extname(filePath);
+        var file = fs.readFileSync(filePath).toString('binary');
+        if (ext === '.png') {
+            var list = png.splitChunk(file);
+            var chunk = this.getUserCommentFromPngChunks(list);
+            userComment = chunk ? chunk.data : '';
+        }
+        else {
+            var exifData = ext !== '.png' ? load(file)['Exif'] : undefined;
+            userComment =
+                typeof exifData !== 'undefined' &&
+                    exifData[TagValues.ExifIFD.UserComment]
+                    ? exifData[TagValues.ExifIFD.UserComment]
+                    : '';
+        }
+        return userComment;
+    };
+    File.prototype.addUserComment = function (fileBuffer, filePath) {
+        var _a;
+        var ext = path.extname(filePath);
+        var newData = fileBuffer;
+        if (ext === '.png') {
+            var list = png.splitChunk(fileBuffer);
+            if (!this.getUserCommentFromPngChunks(list)) {
+                var end = list.pop();
+                var newchunk = png.createChunk(File.PNG_TEXT_CHUNKG_FLAG, File.EXIF_USER_COMMENT);
+                list.push(newchunk);
+                list.push(end);
+                newData = png.joinChunk(list);
+            }
+        }
+        else {
+            var exifData = {
+                Exif: (_a = {},
+                    _a[TagValues.ExifIFD.UserComment] = File.EXIF_USER_COMMENT,
+                    _a),
+            };
+            var exifBytes = dump(exifData);
+            newData = insert(exifBytes, fileBuffer);
+        }
+        return Buffer.from(newData, 'binary');
+    };
+    File.prototype.getUserCommentFromPngChunks = function (list) {
+        var chunk;
+        for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
+            var item = list_1[_i];
+            if (item.type === File.PNG_TEXT_CHUNKG_FLAG) {
+                chunk = item;
+                break;
+            }
+        }
+        return chunk;
+    };
+    return File;
+}());
+
+var Tinify = /** @class */ (function (_super) {
+    __extends(Tinify, _super);
+    function Tinify() {
+        var _this = _super.call(this) || this;
+        _this.config = {};
+        _this.getConfig();
+        return _this;
+    }
+    Tinify.prototype.run = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var choices, count, selectedFiles, _a, compress, addCompressFlag, err_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _b.trys.push([0, 9, , 10]);
+                        return [4 /*yield*/, this.setCompressionCount()];
+                    case 1:
+                        _b.sent();
+                        return [4 /*yield*/, this.getFiles()];
+                    case 2:
+                        choices = _b.sent();
+                        count = choices.filter(function (file) { return !(file instanceof Separator) && !file.disabled; }).length;
+                        if (!(count > 0)) return [3 /*break*/, 7];
+                        return [4 /*yield*/, prompt([
+                                {
+                                    type: 'checkbox',
+                                    message: 'Select the files which should be compressed.',
+                                    name: 'selectedFiles',
+                                    pageSize: choices.length,
+                                    choices: choices,
+                                    validate: function (answer) {
+                                        if (answer.length < 1) {
+                                            return 'You must at least choose one image.';
+                                        }
+                                        return true;
+                                    },
+                                },
+                            ])];
+                    case 3:
+                        selectedFiles = (_b.sent()).selectedFiles;
+                        return [4 /*yield*/, prompt([
+                                {
+                                    type: 'confirm',
+                                    message: "You are about to compress the selected images. Do you want to continue?",
+                                    name: 'compress',
+                                    default: true,
+                                },
+                                {
+                                    type: 'confirm',
+                                    message: "Do you want to add a compressed flag to the file name? eg. test_compressed.png",
+                                    name: 'addCompressFlag',
+                                    default: false,
+                                    when: function (_a) {
+                                        var compress = _a.compress;
+                                        return compress;
+                                    },
+                                },
+                            ])];
+                    case 4:
+                        _a = _b.sent(), compress = _a.compress, addCompressFlag = _a.addCompressFlag;
+                        if (!compress) return [3 /*break*/, 6];
+                        return [4 /*yield*/, this.doCompression(selectedFiles, addCompressFlag)];
+                    case 5:
+                        _b.sent();
+                        _b.label = 6;
+                    case 6: return [3 /*break*/, 8];
+                    case 7:
+                        console.log(logSymbols.info, chalk.bold("You already compressed all images."));
+                        _b.label = 8;
+                    case 8: return [3 /*break*/, 10];
+                    case 9:
+                        err_1 = _b.sent();
+                        console.log(err_1);
+                        console.log(logSymbols.error, chalk.bold("Looks like your key is not valid."));
+                        return [3 /*break*/, 10];
+                    case 10: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Tinify.prototype.doCompression = function (selectedFiles, addCompressFlag) {
+        if (selectedFiles === void 0) { selectedFiles = []; }
+        if (addCompressFlag === void 0) { addCompressFlag = false; }
+        return __awaiter(this, void 0, void 0, function () {
+            var _loop_1, this_1, _i, selectedFiles_1, file, state_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _loop_1 = function (file) {
+                            var filePath, dir, ext, name_1, compressFlag, fileBuffer, spinner, result, err_2;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        filePath = process.cwd() + file;
+                                        dir = path.dirname(filePath);
+                                        ext = path.extname(filePath);
+                                        name_1 = path.basename(filePath).replace(ext, '');
+                                        compressFlag = addCompressFlag ? '_compressed' : '';
+                                        fileBuffer = fs.readFileSync(filePath);
+                                        spinner = ora("Compressing " + name_1 + ext).start();
+                                        result = void 0;
+                                        _a.label = 1;
+                                    case 1:
+                                        _a.trys.push([1, 3, , 4]);
+                                        return [4 /*yield*/, new Promise(function (resolve, reject) {
+                                                tinify.fromBuffer(fileBuffer).toBuffer(function (err, result) {
+                                                    if (err)
+                                                        reject(err);
+                                                    resolve(result);
+                                                });
+                                            })];
+                                    case 2:
+                                        result = _a.sent();
+                                        return [3 /*break*/, 4];
+                                    case 3:
+                                        err_2 = _a.sent();
+                                        spinner.fail(err_2.message);
+                                        return [2 /*return*/, "break"];
+                                    case 4:
+                                        fs.writeFileSync(dir + "/" + name_1 + compressFlag + ext, this_1.addUserComment(result.toString(), filePath));
+                                        spinner.succeed();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        };
+                        this_1 = this;
+                        _i = 0, selectedFiles_1 = selectedFiles;
+                        _a.label = 1;
+                    case 1:
+                        if (!(_i < selectedFiles_1.length)) return [3 /*break*/, 4];
+                        file = selectedFiles_1[_i];
+                        return [5 /*yield**/, _loop_1(file)];
+                    case 2:
+                        state_1 = _a.sent();
+                        if (state_1 === "break")
+                            return [3 /*break*/, 4];
+                        _a.label = 3;
+                    case 3:
+                        _i++;
+                        return [3 /*break*/, 1];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Tinify.prototype.getFiles = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var files, curPath;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, pify(glob)(process.cwd() + '/src/**/*.{png,jpg,jpeg}', {})];
+                    case 1:
+                        files = (_a.sent());
+                        curPath = '';
+                        return [2 /*return*/, files.reduce(function (result, value, key) {
+                                var name = value.replace(process.cwd(), '');
+                                if (!curPath)
+                                    curPath = path.dirname(name);
+                                else if (curPath && curPath !== path.dirname(name)) {
+                                    result.push(new Separator('----------'));
+                                    curPath = path.dirname(name);
+                                }
+                                result.push({
+                                    name: name,
+                                    checked: true,
+                                    disabled: name.match(/compressed/) ||
+                                        _this.readUserComment(value).includes(File.EXIF_USER_COMMENT)
+                                        ? 'Already compressed'
+                                        : false,
+                                });
+                                return result;
+                            }, [])];
+                }
+            });
+        });
+    };
+    Tinify.prototype.setCompressionCount = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var err_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, new Promise(function (resolve, reject) {
+                                tinify.validate(function (err) {
+                                    if (err)
+                                        reject(err);
+                                    resolve();
+                                });
+                            })];
+                    case 1:
+                        _a.sent();
+                        this.compressionsThisMonth = tinify.compressionCount;
+                        if (typeof this.compressionsThisMonth === 'undefined') {
+                            console.log(logSymbols.info, chalk.bold("Couldnt get the compressions count. You probably havent done any compressions."));
+                        }
+                        else {
+                            console.log(logSymbols.info, chalk.bold("You already used " + this.compressionsThisMonth + "/500 free compressions this month."));
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        err_3 = _a.sent();
+                        throw err_3;
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Tinify.prototype.getConfig = function () {
+        var filePath = path.resolve(process.cwd(), './.ppmvi.js');
+        var config = {
+            tinify: { key: '' },
+        };
+        var userConfig = {};
+        if (fs.existsSync(filePath))
+            userConfig = require(filePath).default;
+        this.config = __assign(__assign({}, config), userConfig);
+    };
+    return Tinify;
+}(File));
+function tinifyImages() {
+    return __awaiter(this, void 0, void 0, function () {
+        var tinifyClass;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    tinifyClass = new Tinify();
+                    return [4 /*yield*/, tinifyClass.run()];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+
+export { generate as generateFavicons, tinifyImages as tinify };
 //# sourceMappingURL=index.js.map

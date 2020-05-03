@@ -4,7 +4,7 @@ export default class File {
     static get PNG_TEXT_CHUNKG_FLAG(): string;
     readUserComment(filePath: string): string;
     addUserComment(fileBuffer: string, filePath: string): Buffer;
-    getUserCommentFromPngChunks(list: PngChunk[]): PngChunk | undefined;
+    getUserCommentFromPngChunks(list: PngChunk[]): any;
 }
 interface PngChunk {
     type: string;
