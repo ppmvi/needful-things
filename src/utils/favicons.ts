@@ -1,51 +1,47 @@
 import { LinkPropertyBase, LinkPropertyHref, MetaPropertyName } from 'vue-meta';
 
 interface FaviconLinksOptions {
-  url?: string;
-  manifest?: {
-    url?: string;
-    name?: string;
-  };
+  path?: string;
+  manifestPath?: string;
   color?: string;
 }
 
 interface FaviconMetaTagsOptions {
-  url?: string;
+  path?: string;
   color?: string;
-  statusBarStyle?: string;
+  statusBarStyle?: 'default' | 'black' | 'black-translucent';
 }
 
 export function applyFaviconLinks(
   options: FaviconLinksOptions = {}
 ): (LinkPropertyBase | LinkPropertyHref)[] {
-  const { url = '/static/icons', manifest = {}, color = '#FFFFFF' } = options;
-
   const {
-    url: manifestUrl = '/static',
-    name: manifestName = 'manifest.json',
-  } = manifest;
+    path = '/static/icons',
+    manifestPath = '/static/manifest.json',
+    color = '#FFFFFF',
+  } = options;
 
   return [
     {
       rel: 'apple-touch-icon',
       sizes: '180x180',
-      href: `${url}/apple-touch-icon.png`,
+      href: `${path}/apple-touch-icon.png`,
     },
     {
       rel: 'icon',
       type: 'image/png',
-      href: `${url}/favicon-32x32.png`,
+      href: `${path}/favicon-32x32.png`,
       sizes: '32x32',
     },
     {
       rel: 'icon',
       type: 'image/png',
-      href: `${url}/favicon-16x16.png`,
+      href: `${path}/favicon-16x16.png`,
       sizes: '16x16',
     },
-    { rel: 'manifest', href: `${manifestUrl}/${manifestName}` },
-    { rel: 'mask-icon', href: `${url}/safari-pinned-tab.svg`, color: color },
-    { rel: 'shortcut icon', href: `${url}/favicon.ico` },
+    { rel: 'manifest', href: `${manifestPath}` },
+    { rel: 'mask-icon', href: `${path}/safari-pinned-tab.svg`, color: color },
+    { rel: 'shortcut icon', href: `${path}/favicon.ico` },
   ];
 }
 
@@ -53,14 +49,14 @@ export function applyFaviconMetaTags(
   options: FaviconMetaTagsOptions = {}
 ): MetaPropertyName[] {
   const {
-    url = '/static/icons',
+    path = '/static/icons',
     color = '#FFFFFF',
     statusBarStyle = 'default',
   } = options;
 
   return [
     { name: 'msapplication-TileColor', content: color },
-    { name: 'msapplication-config', content: `${url}/browserconfig.xml` },
+    { name: 'msapplication-config', content: `${path}/browserconfig.xml` },
     { name: 'theme-color', content: color },
     { name: 'apple-mobile-web-app-status-bar-style', content: statusBarStyle },
     { name: 'apple-mobile-web-app-capable', content: 'yes' },
