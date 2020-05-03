@@ -7,6 +7,7 @@ interface FaviconLinksOptions {
 }
 
 interface FaviconMetaTagsOptions {
+  name?: string;
   path?: string;
   color?: string;
   statusBarStyle?: 'default' | 'black' | 'black-translucent';
@@ -49,6 +50,7 @@ export function applyFaviconMetaTags(
   options: FaviconMetaTagsOptions = {}
 ): MetaPropertyName[] {
   const {
+    name = '',
     path = '/static/icons',
     color = '#FFFFFF',
     statusBarStyle = 'default',
@@ -60,5 +62,7 @@ export function applyFaviconMetaTags(
     { name: 'theme-color', content: color },
     { name: 'apple-mobile-web-app-status-bar-style', content: statusBarStyle },
     { name: 'apple-mobile-web-app-capable', content: 'yes' },
+    { name: 'apple-mobile-web-app-title', content: name },
+    { name: 'application-name', content: name },
   ];
 }

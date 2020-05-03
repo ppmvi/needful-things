@@ -22,6 +22,7 @@ describe('favicons.ts', () => {
 
   test('applyFaviconMetaTags should match snapshot with given values', () => {
     const links = favicons.applyFaviconMetaTags({
+      name: 'test',
       color: '#000',
       path: '/test',
       statusBarStyle: 'black-translucent',

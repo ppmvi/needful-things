@@ -92,6 +92,14 @@ Array [
     "content": "yes",
     "name": "apple-mobile-web-app-capable",
   },
+  Object {
+    "content": "",
+    "name": "apple-mobile-web-app-title",
+  },
+  Object {
+    "content": "",
+    "name": "application-name",
+  },
 ]
 `;
 
@@ -116,6 +124,14 @@ Array [
   Object {
     "content": "yes",
     "name": "apple-mobile-web-app-capable",
+  },
+  Object {
+    "content": "test",
+    "name": "apple-mobile-web-app-title",
+  },
+  Object {
+    "content": "test",
+    "name": "application-name",
   },
 ]
 `;
