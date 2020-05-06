@@ -1,22 +1,22 @@
-import commonjs from 'rollup-plugin-commonjs';
 import resolve from 'rollup-plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
 import vue from 'rollup-plugin-vue';
-import { terser } from 'rollup-plugin-terser';
 import license from 'rollup-plugin-license';
 import defaultsDeep from 'lodash/defaultsDeep';
+import typescript from 'rollup-plugin-typescript2';
+import { terser } from "rollup-plugin-terser";
 import fs from 'fs';
 import builtins from './builtins';
 
 export default class RollupConfig {
   constructor(options = {}) {
+    this.formats = ['cjs', 'esm'];
     this.pkg = JSON.parse(fs.readFileSync('./package.json'));
     this.options = defaultsDeep({}, options, {
-      version: this.pkg.version,
       minify: false,
+      version: this.pkg.version,
       name: 'needful-things',
-      input: './src/index.js',
-      external: []
+      input: './src/index.ts',
+      external: ['vue']
     });
   }
 
@@ -34,15 +34,13 @@ export default class RollupConfig {
   }
 
   output() {
-    let min = '';
-
-    if (this.options.minify) min = `.min`;
-
-    return {
-      format: 'esm',
-      preferConst: true,
-      file: `dist/${this.options.name}${min}.js`
-    };
+    return this.formats.map(format => ({
+      file: `dist/${this.options.name}/${format}/index${this.options.minify ? '.min' : ''}.js`,
+      format,
+      name: this.options.name,
+      sourcemap: true,
+      exports: 'named'
+    }));
   }
 
   plugins() {
@@ -56,7 +54,11 @@ export default class RollupConfig {
       })
     );
 
-    plugins.push(commonjs());
+    plugins.push(
+      typescript({
+        useTsconfigDeclarationDir: true
+      })
+    );
 
     plugins.push(
       vue({
@@ -64,21 +66,7 @@ export default class RollupConfig {
       })
     );
 
-    plugins.push(
-      babel({
-        runtimeHelpers: true,
-        extensions: ['.js', '.vue'],
-        babelrc: false,
-        presets: [
-          ['@babel/preset-env', { modules: false }]
-        ],
-        plugins: [
-          '@babel/plugin-transform-runtime'
-        ]
-      })
-    );
-
-    if (this.options.minify) plugins.push(terser());
+    if(this.options.minify) plugins.push(terser());
 
     plugins.push(
       license({

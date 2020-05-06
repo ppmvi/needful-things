@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmailLink.vue renders correctly 1`] = `
+<a
+  aria-label="E-Mail senden"
+  href=""
+>
+  <span>
+    
+    test
+    <span
+      class="hidden"
+    />
+    (at)
+    <span
+      class="hidden"
+    />
+    test.de
+  
+  </span>
+</a>
+`;
