@@ -3,9 +3,9 @@ const requireModule = require('esm')(module);
 const parseArgs = require('minimist');
 const argv = parseArgs(process.argv.slice(2), {
   alias: {
-    h: 'help'
+    h: 'help',
   },
-  boolean: [ 'h' ]
+  boolean: ['h'],
 });
 
 if (argv.help) {
@@ -23,12 +23,13 @@ Options
 }
 
 if (argv['generate-favicons']) {
-  const { generateFavicons } = requireModule('../dist/cli-needful-things.js');
-  if (typeof argv['generate-favicons'] === 'string') generateFavicons(argv['generate-favicons']);
-  else generateFavicons();
+  const { generateFavicons } = requireModule('../dist/cli-needful-things/esm');
+  if (typeof argv['generate-favicons'] === 'string') {
+    generateFavicons(argv['generate-favicons']);
+  } else generateFavicons();
 }
 
 if (argv['tinify']) {
-  const { tinify } = requireModule('../dist/cli-needful-things.js');
+  const { tinify } = requireModule('../dist/cli-needful-things/esm');
   tinify();
 }

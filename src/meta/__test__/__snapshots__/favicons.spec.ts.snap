@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`favicons.ts applyFaviconLinks should match snapshot with default values 1`] = `
+Array [
+  Object {
+    "href": "/static/icons/apple-touch-icon.png",
+    "rel": "apple-touch-icon",
+    "sizes": "180x180",
+  },
+  Object {
+    "href": "/static/icons/favicon-32x32.png",
+    "rel": "icon",
+    "sizes": "32x32",
+    "type": "image/png",
+  },
+  Object {
+    "href": "/static/icons/favicon-16x16.png",
+    "rel": "icon",
+    "sizes": "16x16",
+    "type": "image/png",
+  },
+  Object {
+    "href": "/static/manifest.json",
+    "rel": "manifest",
+  },
+  Object {
+    "color": "#FFFFFF",
+    "href": "/static/icons/safari-pinned-tab.svg",
+    "rel": "mask-icon",
+  },
+  Object {
+    "href": "/static/icons/favicon.ico",
+    "rel": "shortcut icon",
+  },
+]
+`;
+
+exports[`favicons.ts applyFaviconLinks should match snapshot with given values 1`] = `
+Array [
+  Object {
+    "href": "/test/apple-touch-icon.png",
+    "rel": "apple-touch-icon",
+    "sizes": "180x180",
+  },
+  Object {
+    "href": "/test/favicon-32x32.png",
+    "rel": "icon",
+    "sizes": "32x32",
+    "type": "image/png",
+  },
+  Object {
+    "href": "/test/favicon-16x16.png",
+    "rel": "icon",
+    "sizes": "16x16",
+    "type": "image/png",
+  },
+  Object {
+    "href": "/test/test.json",
+    "rel": "manifest",
+  },
+  Object {
+    "color": "#000",
+    "href": "/test/safari-pinned-tab.svg",
+    "rel": "mask-icon",
+  },
+  Object {
+    "href": "/test/favicon.ico",
+    "rel": "shortcut icon",
+  },
+]
+`;
+
+exports[`favicons.ts applyFaviconMetaTags should match snapshot with default values 1`] = `
+Array [
+  Object {
+    "content": "#FFFFFF",
+    "name": "msapplication-TileColor",
+  },
+  Object {
+    "content": "/static/icons/browserconfig.xml",
+    "name": "msapplication-config",
+  },
+  Object {
+    "content": "#FFFFFF",
+    "name": "theme-color",
+  },
+  Object {
+    "content": "default",
+    "name": "apple-mobile-web-app-status-bar-style",
+  },
+  Object {
+    "content": "yes",
+    "name": "apple-mobile-web-app-capable",
+  },
+  Object {
+    "content": "",
+    "name": "apple-mobile-web-app-title",
+  },
+  Object {
+    "content": "",
+    "name": "application-name",
+  },
+]
+`;
+
+exports[`favicons.ts applyFaviconMetaTags should match snapshot with given values 1`] = `
+Array [
+  Object {
+    "content": "#000",
+    "name": "msapplication-TileColor",
+  },
+  Object {
+    "content": "/test/browserconfig.xml",
+    "name": "msapplication-config",
+  },
+  Object {
+    "content": "#000",
+    "name": "theme-color",
+  },
+  Object {
+    "content": "black-translucent",
+    "name": "apple-mobile-web-app-status-bar-style",
+  },
+  Object {
+    "content": "yes",
+    "name": "apple-mobile-web-app-capable",
+  },
+  Object {
+    "content": "test",
+    "name": "apple-mobile-web-app-title",
+  },
+  Object {
+    "content": "test",
+    "name": "application-name",
+  },
+]
+`;
