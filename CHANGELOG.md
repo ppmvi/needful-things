@@ -1,6 +1,19 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [2.0.0](https://github.com/ppmvi/needful-things/compare/v1.5.1...v2.0.0) (2020-05-06)
+
+
+### Features
+
+* rewrite to typescript ([8dfb5de](https://github.com/ppmvi/needful-things/commit/8dfb5de672c49df1836010aceaf7ac8170b1abd5))
+* rewrite to typescript ([49a2ff1](https://github.com/ppmvi/needful-things/commit/49a2ff14e0e97c815667443ff5252efaa0d2e180))
+
+
+### Bug Fixes
+
+* fixed typing ([e48fdd3](https://github.com/ppmvi/needful-things/commit/e48fdd31d67de4b37ead2b9305cdace3c596fb09))
 
 ## [1.5.1](https://github.com/ppmvi/needful-things/compare/v1.5.0...v1.5.1) (2019-04-18)
 
