@@ -15,7 +15,9 @@
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
 
-  @Component
+  @Component({
+    name: 'TelLink'
+  })
   export default class TelLink extends Vue {
     @Prop({ required: true }) tel!: string;
     @Prop() doNotShowTel!: boolean;

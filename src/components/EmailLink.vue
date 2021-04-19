@@ -14,7 +14,9 @@
 <script lang="ts">
   import { Vue, Component, Prop } from 'vue-property-decorator';
 
-  @Component
+  @Component({
+    name: 'EmailLink'
+  })
   export default class EmailLink extends Vue {
     @Prop({ required: true }) email!: string;
 
