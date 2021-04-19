@@ -1,6 +1,6 @@
 /*!
- * Needful things vnull
- * Copyright 2020 Florian Weber - ppm visuals & internet GmbH
+ * Needful things v2.1.0
+ * Copyright 2021 Florian Weber - ppm visuals & internet GmbH
  * Released under the MIT License.
 */
 'use strict';
@@ -72,7 +72,9 @@ var EmailLink = /** @class */ (function (_super) {
         vuePropertyDecorator.Prop({ required: true })
     ], EmailLink.prototype, "email", void 0);
     EmailLink = __decorate([
-        vuePropertyDecorator.Component
+        vuePropertyDecorator.Component({
+            name: 'EmailLink'
+        })
     ], EmailLink);
     return EmailLink;
 }(vuePropertyDecorator.Vue));
@@ -239,7 +241,9 @@ var TelLink = /** @class */ (function (_super) {
         vuePropertyDecorator.Prop()
     ], TelLink.prototype, "doNotShowTel", void 0);
     TelLink = __decorate([
-        vuePropertyDecorator.Component
+        vuePropertyDecorator.Component({
+            name: 'TelLink'
+        })
     ], TelLink);
     return TelLink;
 }(vuePropertyDecorator.Vue));

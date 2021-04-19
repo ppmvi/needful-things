@@ -1,6 +1,6 @@
 /*!
- * Needful things vnull
- * Copyright 2020 Florian Weber - ppm visuals & internet GmbH
+ * Needful things v2.1.0
+ * Copyright 2021 Florian Weber - ppm visuals & internet GmbH
  * Released under the MIT License.
 */
 import rfg from 'rfg-api';
