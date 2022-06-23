@@ -41,7 +41,7 @@
     "@types/pify": "3.0.2",
     "@vue/test-utils": "1.0.0-beta.33",
     "babel-core": "^6.26.3",
-    "codecov": "3.6.5",
+    "codecov": "3.8.3",
     "execa": "4.0.0",
     "jest": "25.5.4",
     "jest-serializer-vue": "2.0.2",
